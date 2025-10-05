@@ -1,10 +1,10 @@
 body {
     background-color: #303030;
-    margin: 20px; /* Optional: remove default margin */
-    padding: 0; /* Optional: remove default padding */
+    margin: 0; /* remove to prevent double-width */
+    padding: 20px; /* single padding inside */
     font-family: Arial, sans-serif;
-    width: 100%;        /* ensures body takes full width of the screen */
-    box-sizing: border-box; /* includes padding in width calculation */
+    box-sizing: border-box;
+    overflow-x: hidden; /* ensure no horizontal scroll */
 }
 .title {
     color: #e74c3c;        /* Sets the font color to blue */
@@ -15,7 +15,7 @@ body {
     border: none;
     height: 2px;
     background-color: #7f8c8d;
-    width: 100%;
+    width: 90%;
     margin: 20px auto;
 }
 
@@ -49,6 +49,12 @@ body {
     margin-top:30px;
     margin-left:40px;
 }
+
+button {
+    max-width: 90vw; /* ensures buttons never exceed screen width */
+  }
+  
+  .divider 
 
 #homeButton {
     position: fixed;      /* Fixes the button relative to the viewport */

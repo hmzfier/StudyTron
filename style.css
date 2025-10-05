@@ -1,0 +1,150 @@
+body {
+    background-color: #303030;
+    margin: 20px; /* Optional: remove default margin */
+    padding: 0; /* Optional: remove default padding */
+    font-family: Arial, sans-serif;
+    width: 100%;        /* ensures body takes full width of the screen */
+    box-sizing: border-box; /* includes padding in width calculation */
+}
+.title {
+    color: #e74c3c;        /* Sets the font color to blue */
+    font-size: 25px;    /* Sets the font size to 12 pixels */
+    margin-top:10px;
+}
+.divider {
+    border: none;
+    height: 2px;
+    background-color: #7f8c8d;
+    width: 100%;
+    margin: 20px auto;
+}
+
+.topicHeader {
+    color: #2ecc71;        /* Sets the font color to blue */
+    font-size: 18px;    /* Sets the font size to 12 pixels */
+    margin-top:20px;
+}
+
+.question {
+    color: #3498db;        /* Sets the font color to blue */
+    font-size: 16px;    /* Sets the font size to 12 pixels */
+    margin-top:30px;
+}
+
+.questionChoice {
+    color: #ffa502;        /* Sets the font color to blue */
+    font-size: 16px;    /* Sets the font size to 12 pixels */
+    margin-top:30px;
+}
+
+.answer {
+    color: rgb(255, 255, 255);        /* Sets the font color to blue */
+    font-size: 16px;    /* Sets the font size to 12 pixels */
+    margin-top:30px;
+}
+
+.answer2 {
+    color: rgb(255, 255, 255);        /* Sets the font color to blue */
+    font-size: 16px;    /* Sets the font size to 12 pixels */
+    margin-top:30px;
+    margin-left:40px;
+}
+
+#homeButton {
+    position: fixed;      /* Fixes the button relative to the viewport */
+    bottom: 320px;         /* Distance from the bottom of the screen */
+    right: 20px;          /* Distance from the right of the screen */
+    padding: 10px 20px;   /* Button padding */
+    font-size: 16px;      /* Font size */
+    cursor: pointer;      /* Pointer on hover */
+    z-index: 1000;        /* Ensures the button stays on top of other elements */
+}
+
+#toggleAnswers {
+    position: fixed;      /* Fixes the button relative to the viewport */
+    bottom: 20px;         /* Distance from the bottom of the screen */
+    right: 20px;          /* Distance from the right of the screen */
+    padding: 10px 20px;   /* Button padding */
+    font-size: 16px;      /* Font size */
+    cursor: pointer;      /* Pointer on hover */
+    z-index: 1000;        /* Ensures the button stays on top of other elements */
+}
+
+#toggleJump {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    transition: background-color 0.2s ease;
+    z-index: 1001;
+}
+
+.scroll-buttons {
+    position: fixed;
+    bottom: 70px; /* slightly above toggle button */
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.scroll-buttons button {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Hidden class */
+.hidden {
+    display: none;
+}
+
+/* Back to Top button styling */
+#backToTop {
+    position: fixed;
+    bottom: 260px;  /* distance from bottom */
+    right: 20px;    /* distance from left */
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1000; /* make sure it's on top */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+/* Back to Middle button styling */
+#toMiddle {
+    position: fixed;
+    bottom: 200px;  /* distance from bottom */
+    right: 20px;    /* distance from left */
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1000; /* make sure it's on top */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+/* Back to Bottom button styling */
+#toBottom {
+    position: fixed;
+    bottom: 140px;  /* distance from bottom */
+    right: 20px;    /* distance from left */
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1000; /* make sure it's on top */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}

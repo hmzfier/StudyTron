@@ -165,7 +165,8 @@ toggleButtons.addEventListener('click', () => {
 
 
 // JS to hide on scroll down, show on scroll up
-let lastScrollY = window.scrollY;
+//Note this works
+/*let lastScrollY = window.scrollY;
 const bottomMenu = document.querySelector('.bottom-menu');
 
 window.addEventListener('scroll', () => {
@@ -180,4 +181,15 @@ window.addEventListener('scroll', () => {
     }
 
     lastScrollY = currentScrollY;
+});*/
+
+const toggleBtn = document.getElementById('menuToggleBtn');
+const bottomMenu = document.querySelector('.bottom-menu');
+
+toggleBtn.addEventListener('click', () => {
+  if (bottomMenu.style.display === 'none' || bottomMenu.style.display === '') {
+    bottomMenu.style.display = 'flex'; // show menu
+  } else {
+    bottomMenu.style.display = 'none'; // hide menu
+  }
 });

@@ -166,7 +166,7 @@ toggleButtons.addEventListener('click', () => {
 
 // JS to hide on scroll down, show on scroll up
 let lastScrollY = window.scrollY;
-const bottomMenu = document.getElementById('bottomMenu');
+const bottomMenu = document.getElementById('.bottom-menu');
 
 window.addEventListener('scroll', () => {
     const currentScrollY = window.scrollY;

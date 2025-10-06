@@ -1,5 +1,5 @@
 //toggle button to show answers
-/*const button = document.getElementById('toggleAnswers');
+const button = document.getElementById('toggleAnswers');
 let isRed = false; // Keeps track of toggle state
 
 button.addEventListener('click', () => {
@@ -15,7 +15,7 @@ button.addEventListener('click', () => {
     });
 
     isRed = !isRed; // Flip the toggle state
-});*/
+});
 
 // Toggle button to show/hide answers
 /*const button = document.getElementById('toggleAnswers');
@@ -47,7 +47,7 @@ button.addEventListener('click', () => {
 });*/
 
 // Toggle button to show/hide answers while keeping vertical position stable
-const button = document.getElementById('toggleAnswers');
+/*const button = document.getElementById('toggleAnswers');
 let answersHidden = false; // false = answers currently visible
 
 button.addEventListener('click', () => {
@@ -121,7 +121,7 @@ button.addEventListener('click', () => {
       }
     });
   });
-});
+});*/
 
 
 

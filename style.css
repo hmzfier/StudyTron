@@ -58,7 +58,7 @@ button {
 
 #homeButton {
     position: fixed;      /* Fixes the button relative to the viewport */
-    bottom: 320px;         /* Distance from the bottom of the screen */
+    bottom: 620px;         /* Distance from the bottom of the screen */
     right: 20px;          /* Distance from the right of the screen */
     padding: 10px 20px;   /* Button padding */
     font-size: 16px;      /* Font size */
@@ -92,11 +92,14 @@ button {
 
 .scroll-buttons {
     position: fixed;
+    Height:280px;
+    /*Width:200px;*/
+    /*Background-color:red;*/
     bottom: 70px; /* slightly above toggle button */
-    left: 20px;
-    display: flex;
+    right: 20px;
+    /*display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 10px;*/
     z-index: 1000;
 }
 

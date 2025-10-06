@@ -163,17 +163,3 @@ toggleButtons.addEventListener('click', () => {
 });*/
 
 
-// Keep bottom menu glued to visible bottom on mobile Chrome
-function adjustBottomMenu() {
-    const menu = document.querySelector('.bottom-menu');
-    // Some browsers do not support env(safe-area-inset-bottom), fallback:
-    const safeInset = parseInt(getComputedStyle(menu).getPropertyValue('bottom')) || 0;
-    menu.style.bottom = safeInset + 'px';
-}
-
-// Listen to viewport changes
-window.addEventListener('resize', adjustBottomMenu);
-window.addEventListener('scroll', adjustBottomMenu);
-
-// Initial adjustment
-adjustBottomMenu();

@@ -163,14 +163,17 @@ toggleButtons.addEventListener('click', () => {
 });*/
 
 
-//keep menu on the bottom for mobile
-function updateBottomMenu() {
+// Keep bottom menu glued to visible bottom on mobile Chrome
+function adjustBottomMenu() {
     const menu = document.querySelector('.bottom-menu');
-    // Use window.innerHeight to calculate real visible bottom
-    menu.style.bottom = '0px'; // always stick to bottom
+    // Some browsers do not support env(safe-area-inset-bottom), fallback:
+    const safeInset = parseInt(getComputedStyle(menu).getPropertyValue('bottom')) || 0;
+    menu.style.bottom = safeInset + 'px';
 }
 
-window.addEventListener('resize', updateBottomMenu);
-window.addEventListener('scroll', updateBottomMenu);
+// Listen to viewport changes
+window.addEventListener('resize', adjustBottomMenu);
+window.addEventListener('scroll', adjustBottomMenu);
 
-updateBottomMenu();
+// Initial adjustment
+adjustBottomMenu();

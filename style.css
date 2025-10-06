@@ -106,10 +106,10 @@ button {
 
 
 /* Fixed horizontal menu */
-.bottom-menu {
+/*.bottom-menu {
     position: fixed;
     bottom: 0;
-    bottom: env(safe-area-inset-bottom); /* dynamically adjust to visible bottom */           
+    bottom: env(safe-area-inset-bottom);       
     left: 0;
     width: 100%;        
     background-color: rgba(34, 34, 34, 1.0); 
@@ -137,7 +137,48 @@ button {
   .bottom-spacer {
     height: 200px;  
     width: 100%;    
-  }
+  }*/
+
+
+
+  /* Fixed horizontal menu */
+.bottom-menu {
+    position: fixed;
+    bottom: env(safe-area-inset-bottom, 0px); /* stick to visible bottom with safe area */
+    left: 0;
+    width: 100%;
+    background-color: rgba(34, 34, 34, 0.9); /* slightly transparent */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    z-index: 1000;
+    transition: bottom 0.25s ease; /* smooth transition when viewport changes */
+}
+
+/* Menu buttons */
+.bottom-menu a, .bottom-menu button {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.bottom-menu a:hover, .bottom-menu button:hover {
+    background-color: #444;
+}
+
+/* Spacer div to avoid content hidden behind menu */
+.chrome-spacer {
+    height: 60px; /* adjust to menu height */
+    width: 100%;
+}
+
 
 
 

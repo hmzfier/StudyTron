@@ -74,12 +74,19 @@ button {
 }
 
 
+.bottom-spacer {
+    height: 200px;  
+    width: 100%;    
+  }
 
 
+
+
+  
 
 
 /* Fixed horizontal menu */
-/*.bottom-menu {
+.bottom-menu {
     position: fixed;
     bottom: 0;
     bottom: env(safe-area-inset-bottom);       
@@ -107,14 +114,11 @@ button {
   }
 
 
-  .bottom-spacer {
-    height: 200px;  
-    width: 100%;    
-  }*/
+ 
 
-  .bottom-menu {
+ /* .bottom-menu {
     position: sticky;
-    top: 0;            /* Stick to top instead of bottom */
+    top: 0;            
     left: 0;
     width: 100%;        
     background-color: rgba(34, 34, 34, 1.0); 
@@ -136,7 +140,7 @@ button {
 .bottom-menu a:hover {
     background-color: #444;
     border-radius: 5px;
-}
+}*/
 
 
 

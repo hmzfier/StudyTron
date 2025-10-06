@@ -108,8 +108,8 @@ button {
 /* Fixed horizontal menu */
 .bottom-menu {
     position: fixed;
-    bottom: env(safe-area-inset-bottom); /* dynamically adjust to visible bottom */
-    bottom: 0;           
+    bottom: 0;
+    bottom: env(safe-area-inset-bottom); /* dynamically adjust to visible bottom */           
     left: 0;
     width: 100%;        
     background-color: rgba(34, 34, 34, 1.0); 

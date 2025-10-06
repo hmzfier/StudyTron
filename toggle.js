@@ -163,3 +163,14 @@ toggleButtons.addEventListener('click', () => {
 });*/
 
 
+//keep menu on the bottom for mobile
+function updateBottomMenu() {
+    const menu = document.querySelector('.bottom-menu');
+    // Use window.innerHeight to calculate real visible bottom
+    menu.style.bottom = '0px'; // always stick to bottom
+}
+
+window.addEventListener('resize', updateBottomMenu);
+window.addEventListener('scroll', updateBottomMenu);
+
+updateBottomMenu();

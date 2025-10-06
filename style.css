@@ -20,13 +20,22 @@ body {
 }
 
 .topicHeader {
-    color: #2ecc71;        /* Sets the font color to blue */
+    color: #10ac84;        /* Sets the font color to blue */
     font-size: 18px;    /* Sets the font size to 12 pixels */
     margin-top:20px;
+
+}
+.subTopicHeader {
+    color: #ffffff;        /* Sets the font color to blue */
+    font-size: 18px;    /* Sets the font size to 12 pixels */
+    margin-top:30px;
+    background-color:#2e86de;
+    width:100%;
+    padding:10px;
 }
 
 .question {
-    color: #3498db;        /* Sets the font color to blue */
+    color: #54a0ff;        /* Sets the font color to blue */
     font-size: 16px;    /* Sets the font size to 12 pixels */
     margin-top:30px;
 }
@@ -54,41 +63,19 @@ button {
     max-width: 90vw; /* ensures buttons never exceed screen width */
   }
   
-  .divider 
 
-#homeButton {
-    position: fixed;      /* Fixes the button relative to the viewport */
-    bottom: 620px;         /* Distance from the bottom of the screen */
-    right: 20px;          /* Distance from the right of the screen */
-    padding: 10px 20px;   /* Button padding */
-    font-size: 16px;      /* Font size */
-    cursor: pointer;      /* Pointer on hover */
-    z-index: 1000;        /* Ensures the button stays on top of other elements */
+#homeButton, #backToTop, #toMiddle, #toBottom, #toggleAnswers{
+    padding:10px 15px;
+    background: none;   /* removes the background */
+    border: none;       /* removes the border */
+    outline: none;      /* optional: removes the focus outline */
+    cursor: pointer;    /* keeps the pointer cursor */
+    color: #c8d6e5;
 }
 
-#toggleAnswers {
-    position: fixed;      /* Fixes the button relative to the viewport */
-    bottom: 20px;         /* Distance from the bottom of the screen */
-    right: 20px;          /* Distance from the right of the screen */
-    padding: 10px 20px;   /* Button padding */
-    font-size: 16px;      /* Font size */
-    cursor: pointer;      /* Pointer on hover */
-    z-index: 1000;        /* Ensures the button stays on top of other elements */
-}
 
-#toggleJump {
-    position: fixed;
-    bottom: 80px;
-    right: 20px;
-    padding: 10px 15px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-    transition: background-color 0.2s ease;
-    z-index: 1001;
-}
+
+
 
 .scroll-buttons {
     position: fixed;
@@ -116,44 +103,43 @@ button {
     display: none;
 }
 
-/* Back to Top button styling */
-#backToTop {
-    position: fixed;
-    bottom: 260px;  /* distance from bottom */
-    right: 20px;    /* distance from left */
-    padding: 10px 15px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    z-index: 1000; /* make sure it's on top */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-}
 
-/* Back to Middle button styling */
-#toMiddle {
-    position: fixed;
-    bottom: 200px;  /* distance from bottom */
-    right: 20px;    /* distance from left */
-    padding: 10px 15px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    z-index: 1000; /* make sure it's on top */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-}
 
-/* Back to Bottom button styling */
-#toBottom {
+/* Fixed horizontal menu */
+.bottom-menu {
     position: fixed;
-    bottom: 140px;  /* distance from bottom */
-    right: 20px;    /* distance from left */
-    padding: 10px 15px;
+    bottom: 0;           
+    left: 0;
+    width: 100%;        
+    background-color: rgba(34, 34, 34, 1.0); 
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    z-index: 1000;       
+  }
+
+  .bottom-menu a {
+    color: white;
+    text-decoration: none;
     font-size: 16px;
-    border: none;
+    padding: 0px;
+    transition: background 0.3s ease;
+  }
+  
+  .bottom-menu a:hover {
+    background-color: #444;
     border-radius: 5px;
-    cursor: pointer;
-    z-index: 1000; /* make sure it's on top */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-}
+  }
+
+
+  .bottom-spacer {
+    height: 200px;  
+    width: 100%;    
+  }
+
+
+
+ 
+
+

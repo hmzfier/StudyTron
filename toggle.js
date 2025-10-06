@@ -154,10 +154,12 @@ toBottom.addEventListener('click', () => {
 
 
 // Toggle show/hide Jump Buttons
-const toggleButtons = document.getElementById('toggleJump');
+/*const toggleButtons = document.getElementById('toggleJump');
 const scrollButtons = document.querySelector('.scroll-buttons');
 
 toggleButtons.addEventListener('click', () => {
     const isHidden = scrollButtons.classList.toggle('hidden');
     toggleButtons.textContent = isHidden ? 'Menu' : 'Hide';
-});
+});*/
+
+

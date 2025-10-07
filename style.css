@@ -63,15 +63,24 @@ button {
     max-width: 90vw; /* ensures buttons never exceed screen width */
   }
   
-
-#homeButton, #backToTop, #toMiddle, #toBottom, #toggleAnswers{
+/* V1 Works */
+/*#homeButton, #backToTop, #toMiddle, #toBottom, #toggleAnswers{
     padding:10px 15px;
-    background: none;   /* removes the background */
-    border: none;       /* removes the border */
-    outline: none;      /* optional: removes the focus outline */
-    cursor: pointer;    /* keeps the pointer cursor */
+    background: none;   
+    border: none;       
+    outline: none;      
+    cursor: pointer;    
     color: #c8d6e5;
-}
+}*/
+
+/*#homeButton, #backToTop, #toMiddle, #toBottom {
+    padding:10px 15px;
+    background: none;   
+    border: none;      
+    outline: none;      
+    cursor: pointer;    
+    color: #c8d6e5;
+}*/
 
 
 .bottom-spacer {
@@ -85,8 +94,8 @@ button {
 
 
 
-/* Fixed horizontal menu */
-.bottom-menu {
+/* V1 - currently using */
+/*.bottom-menu {
     position: fixed;
     bottom: 0;
     bottom: env(safe-area-inset-bottom);       
@@ -111,8 +120,86 @@ button {
   .bottom-menu a:hover {
     background-color: #444;
     border-radius: 5px;
-  }
+  }*/
 
+  /* Side menu styling */
+.menu {
+  position: fixed;
+  top: 0;
+  right: -40%;
+  width: 40%;
+  height: 100%;
+  background-color: #333;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: right 0.4s ease;
+  z-index: 1000;
+}
+
+.menu button {
+  background-color: #444;
+  color: white;
+  border: none;
+  padding: 15px;
+  margin: 10px;
+  width: 80%;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+
+.menu button:hover {
+  background-color: #555;
+}
+
+/* When menu is active */
+.menu.active {
+  right: 0;
+}
+
+/* Menu button (always bottom right) */
+#menuButton {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #a4b0be;
+  /*background-color: rgba(164, 176, 190, 0.5);*/
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 1100;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  transition: background-color 0.3s;
+}
+
+
+/*#toggleAnswers {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  background-color: #a4b0be;
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 1100;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  transition: background-color 0.3s;
+}*/
+
+
+
+  /* This is not good */
 /* Bottom menu (hidden by default) */
 /*.bottom-menu {
     position: fixed;

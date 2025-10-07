@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sliding Menu</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Side menu styling */
+    #sideMenu {
+      position: fixed;
+      top: 0;
+      right: -30%;
+      width: 30%;
+      height: 100%;
+      background-color: #333;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: right 0.4s ease;
+      z-index: 1000;
+    }
+
+    #sideMenu.active {
+      right: 0;
+    }
+
+    #sideMenu button {
+      background-color: #444;
+      color: white;
+      border: none;
+      padding: 15px;
+      margin: 10px;
+      width: 80%;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+    }
+
+    #sideMenu button:hover {
+      background-color: #555;
+    }
+
+    /* Menu button always bottom right */
+    #menuButton {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 15px 25px;
+      font-size: 16px;
+      cursor: pointer;
+      z-index: 1100;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+      transition: background-color 0.3s;
+    }
+
+    #menuButton:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="sideMenu">
+    <button>Home</button>
+    <button>Profile</button>
+    <button>Settings</button>
+    <button>Help</button>
+    <button>Logout</button>
+  </div>
+
+  <button id="menuButton">Menu</button>
+
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const sideMenu = document.getElementById('sideMenu');
+
+    menuButton.addEventListener('click', () => {
+      sideMenu.classList.toggle('active');
+    });
+  </script>
+
+</body>
+</html>

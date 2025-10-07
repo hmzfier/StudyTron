@@ -25,7 +25,13 @@ submitBtn.addEventListener('click', () => {
         const tabCount = line.match(/^\t*/)[0].length;
         let htmlLine = '';
 
-        if (tabCount === 0) {
+        // Detect titles starting with *** and remove ***
+        if (trimmed.startsWith('***')) {
+            const cleanTitle = trimmed.replace(/^\*{3}/, '').trim(); // remove leading ***
+            htmlLine = `<hr class="divider"><p class="subTopicHeader">${cleanTitle}</p>`;
+            lastWasQuestion = false; // reset question flag after title
+        } 
+        else if (tabCount === 0) {
             if (!lastWasQuestion) {
                 // This is a new question
                 htmlLine = `<hr class="divider"><p class="question">${trimmed}</p>`;
@@ -34,7 +40,8 @@ submitBtn.addEventListener('click', () => {
                 // This is a question choice (single new line after a question)
                 htmlLine = `<p class="questionChoice">${trimmed}</p>`;
             }
-        } else if (tabCount >= 1) {
+        } 
+        else if (tabCount >= 1) {
             // This is an answer
             htmlLine = `<p class="answer">${trimmed}</p>`;
             lastWasQuestion = false; // reset after an answer

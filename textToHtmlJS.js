@@ -20,7 +20,12 @@ submitBtn.addEventListener('click', () => {
         let htmlLine = '';
         const tabCount = line.match(/^\t*/)[0].length;
 
-        if (tabCount === 0) {
+        // Detect titles starting with ***
+        if (trimmed.startsWith('***')) {
+            const cleanTitle = trimmed.replace(/^\*{3}/, '').trim(); // remove ***
+            htmlLine = `<hr class="divider"><p class="subTopicHeader">${cleanTitle}</p>`;
+        } 
+        else if (tabCount === 0) {
             htmlLine = `<hr class="divider"><p class="topicHeader">${trimmed}</p>`;
         } else if (tabCount === 1) {
             htmlLine = `<p class="question">${trimmed}</p>`;
@@ -29,7 +34,6 @@ submitBtn.addEventListener('click', () => {
         } else if (tabCount === 3) {
             htmlLine = `<p class="answer2">${trimmed}</p>`;
         }
-        
 
         htmlOutput += htmlLine + '\n';
     });

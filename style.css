@@ -20,6 +20,13 @@ body {
     margin: 20px auto;
 }
 
+.chapterHeader {
+    font-weight: bold;
+    font-size: 30px;
+    margin-top: 20px;
+    color: #37ee1d;
+}
+
 .topicHeader {
     color: #10ac84;        /* Sets the font color to blue */
     font-size: 18px;    /* Sets the font size to 12 pixels */
@@ -31,7 +38,6 @@ body {
     font-size: 18px;    /* Sets the font size to 12 pixels */
     margin-top:30px;
     background-color:#c0392b;
-    width:100%;
     padding:10px;
 }
 

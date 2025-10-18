@@ -43,7 +43,7 @@ body {
 
 .question {
     color: #54a0ff;        /* Sets the font color to blue */
-    font-size: 16px;    /* Sets the font size to 12 pixels */
+    font-size: 18px;    /* Sets the font size to 12 pixels */
     margin-top:30px;
 }
 
@@ -55,13 +55,13 @@ body {
 
 .answer {
     color: rgb(255, 255, 255);        /* Sets the font color to blue */
-    font-size: 16px;    /* Sets the font size to 12 pixels */
+    font-size: 18px;    /* Sets the font size to 12 pixels */
     margin-top:30px;
 }
 
 .answer2 {
     color: rgb(255, 255, 255);        /* Sets the font color to blue */
-    font-size: 16px;    /* Sets the font size to 12 pixels */
+    font-size: 18px;    /* Sets the font size to 12 pixels */
     margin-top:30px;
     margin-left:40px;
 }

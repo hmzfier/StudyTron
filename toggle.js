@@ -7,14 +7,34 @@ button.addEventListener('click', () => {
     const answers2 = document.querySelectorAll('.answer2');
     
     answers.forEach(el => {
-        el.style.color = isRed ? '#ffffff' : '#303030';
+        el.style.color = isRed ? '#ffffff' : '#2d2d2d';
     });
 
     answers2.forEach(el => {
-        el.style.color = isRed ? '#ffffff' : '#303030';
+        el.style.color = isRed ? '#ffffff' : '#2d2d2d';
     });
 
     isRed = !isRed; // Flip the toggle state
+});
+
+//new toggle button
+//toggle button to show answers
+const button2 = document.getElementById('blepButton');
+let isRed2 = false; // Keeps track of toggle state
+
+button2.addEventListener('click', () => {
+    const answers = document.querySelectorAll('.answer');
+    const answers2 = document.querySelectorAll('.answer2');
+    
+    answers.forEach(el => {
+        el.style.color = isRed2 ? '#ffffff' : '#2d2d2d';
+    });
+
+    answers2.forEach(el => {
+        el.style.color = isRed2 ? '#ffffff' : '#2d2d2d';
+    });
+
+    isRed2 = !isRed2; // Flip the toggle state
 });
 
 // Toggle button to show/hide answers
@@ -166,7 +186,8 @@ toggleButtons.addEventListener('click', () => {
 
 // JS to hide on scroll down, show on scroll up
 //Note this works
-let lastScrollY = window.scrollY;
+//removed on 10/18 - I think this is old code
+/*let lastScrollY = window.scrollY;
 const bottomMenu = document.querySelector('.bottom-menu');
 
 window.addEventListener('scroll', () => {
@@ -181,7 +202,7 @@ window.addEventListener('scroll', () => {
     }
 
     lastScrollY = currentScrollY;
-});
+});*/
 
 /*const toggleBtn = document.getElementById('menuToggleBtn');
 const bottomMenu = document.querySelector('.bottom-menu');

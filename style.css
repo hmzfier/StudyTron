@@ -175,7 +175,6 @@ button {
   bottom: 20px;
   right: 20px;
   background-color: #a4b0be;
-  /*background-color: rgba(164, 176, 190, 0.5);*/
   color: rgb(0, 0, 0);
   border: none;
   border-radius: 10px;
@@ -187,6 +186,21 @@ button {
   transition: background-color 0.3s;
 }
 
+#blepButton {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  background-color: #a4b0be;
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 1100;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  transition: background-color 0.3s;
+}
 
 /*#toggleAnswers {
   position: fixed;

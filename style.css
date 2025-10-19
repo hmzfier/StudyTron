@@ -1,3 +1,7 @@
+/*disables zoom on mobile browsers */
+html {
+  touch-action: manipulation;
+}
 body {
     /*background-color: #303030;*/
     background-color: #2d2d2d;
@@ -6,6 +10,7 @@ body {
     font-family: Arial, sans-serif;
     box-sizing: border-box;
     overflow-x: hidden; /* ensure no horizontal scroll */
+    touch-action: manipulation;
 }
 .title {
     color: #e74c3c;        /* Sets the font color to blue */
@@ -200,6 +205,7 @@ button {
   z-index: 1100;
   box-shadow: 0 4px 6px rgba(0,0,0,0.3);
   transition: background-color 0.3s;
+  touch-action: manipulation; /* disables zoom on mobile */
 }
 
 /*#toggleAnswers {

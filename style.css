@@ -47,7 +47,8 @@ body {
 }
 
 .question {
-    color: #54a0ff;        /* Sets the font color to blue */
+    /*color: #54a0ff; */       /* Sets the font color to blue */
+    color: #53d35b;
     font-size: 18px;    /* Sets the font size to 12 pixels */
     margin-top:30px;
 }

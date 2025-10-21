@@ -5,15 +5,23 @@ let isRed = false; // Keeps track of toggle state
 button.addEventListener('click', () => {
     const answers = document.querySelectorAll('.answer');
     const answers2 = document.querySelectorAll('.answer2');
+    const answers3 = document.querySelectorAll('.highlight');
     
     answers.forEach(el => {
         el.style.color = isRed ? '#ffffff' : '#2d2d2d';
     });
 
+     //isRed = !isRed;
+
     answers2.forEach(el => {
         el.style.color = isRed ? '#ffffff' : '#2d2d2d';
     });
 
+    //isRed = !isRed;
+
+   /* answers3.forEach(el => {
+        el.style.color = isRed ? '#fd3ac3' : '#2d2d2d';
+    });*/
     isRed = !isRed; // Flip the toggle state
 });
 
@@ -25,6 +33,7 @@ let isRed2 = false; // Keeps track of toggle state
 button2.addEventListener('click', () => {
     const answers = document.querySelectorAll('.answer');
     const answers2 = document.querySelectorAll('.answer2');
+    const answers3 = document.querySelectorAll('.highlight');
     
     answers.forEach(el => {
         el.style.color = isRed2 ? '#ffffff' : '#2d2d2d';
@@ -32,6 +41,10 @@ button2.addEventListener('click', () => {
 
     answers2.forEach(el => {
         el.style.color = isRed2 ? '#ffffff' : '#2d2d2d';
+    });
+
+    answers3.forEach(el => {
+        el.style.color = isRed2 ? '#fd3ac3' : '#2d2d2d';
     });
 
     isRed2 = !isRed2; // Flip the toggle state

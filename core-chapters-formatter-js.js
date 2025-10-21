@@ -24,7 +24,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 htmlOutput += `<p class="subTopicHeader">${trimmedLine.substring(1).trim()}</p>\n`;
             } else if (trimmedLine.startsWith("=")) {
                 htmlOutput += `<hr class="divider"><p class="question">${trimmedLine.substring(1).trim()}</p>\n`;
-            } else {
+            } else if (trimmedLine.startsWith("+")) {
+                htmlOutput += `<p class="highlight">${trimmedLine.substring(1).trim()}</p>\n`;
+            }
+            else {
                 htmlOutput += `<p class="answer">${trimmedLine}</p>\n`;
             }
         });

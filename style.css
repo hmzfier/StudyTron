@@ -75,6 +75,12 @@ body {
 button {
     max-width: 90vw; /* ensures buttons never exceed screen width */
   }
+
+.highlight {
+  color: #fd3ac3;        /* Sets the font color to blue */
+  font-size: 16px;    /* Sets the font size to 12 pixels */
+  margin-top:30px;
+}
   
 /* V1 Works */
 /*#homeButton, #backToTop, #toMiddle, #toBottom, #toggleAnswers{

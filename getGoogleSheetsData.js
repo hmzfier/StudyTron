@@ -1,4 +1,4 @@
-const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSfC2fDjdQH3W3Y3eRktW01871ZAkvpMHNAwIjfQNajGh4YfnPIhO6cJoZ0G17BXZErmWHRZLtN1e_g/pub?gid=0&single=true&output=csv";
+    const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSfC2fDjdQH3W3Y3eRktW01871ZAkvpMHNAwIjfQNajGh4YfnPIhO6cJoZ0G17BXZErmWHRZLtN1e_g/pub?gid=0&single=true&output=csv";
 
     async function getRowData(searchName) {
       const response = await fetch(sheetUrl);
@@ -28,12 +28,18 @@ const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSfC2fDjdQH3W3
       return null; // not found
     }
 
-    // Example usage:
+    // Display the data as HTML
     getRowData("Chapter 8 Questions").then(data => {
+      const container = document.getElementById("data-container");
+
       if (data) {
-        console.log(data);
-        // {EasyData: "1,2,3", MediumData: "4,5,6", HardData: "7,8,9"}
+        container.innerHTML = `
+          <p><strong>Easy Data:</strong> ${data.EasyData}</p>
+          <p><strong>Medium Data:</strong> ${data.MediumData}</p>
+          <p><strong>Hard Data:</strong> ${data.HardData}</p>
+        `;
       } else {
-        console.log("Not found");
+        container.innerHTML = "<p>Data not found.</p>";
       }
     });
+  </script>

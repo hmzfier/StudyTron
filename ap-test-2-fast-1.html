@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <link rel="stylesheet" href="style.css">
 <script src="toggle.js" defer></script>
-<script src="getGoogleSheetsData.js" defer></script>
+<!--<script src="getGoogleSheetsData.js" defer></script>-->
 </head>
 <body>
 
@@ -21,7 +21,7 @@
   <button id="menuButton">☰</button>
   <button id="blepButton">SHOW</button>
 
-<p class="title">Fast 1 G Sheets 3</p>
+<p class="title">Fast 1 G Sheets 4</p>
 
 <p class="chapterHeader">Chapter 6</p>
 <hr class="divider"><p class="question">What are the 3 main structures of the skeletal system?</p>
@@ -64,60 +64,9 @@
 
   <div class="bottom-spacer"></div>
 
+  <div id="data-container"></div>
 
 
-    <div id="data-container">Loading...</div>
-
-  <script>
-    const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSfC2fDjdQH3W3Y3eRktW01871ZAkvpMHNAwIjfQNajGh4YfnPIhO6cJoZ0G17BXZErmWHRZLtN1e_g/pub?gid=0&single=true&output=csv";
-
-    async function getRowData(searchName) {
-      const response = await fetch(sheetUrl);
-      const csvText = await response.text();
-
-      // Parse CSV robustly using split on newline, then handle quoted commas
-      const rows = Papa.parse(csvText, { header: true }).data;
-
-      // Find the row with the matching name
-      const row = rows.find(r => r.Name === searchName);
-      return row || null;
-    }
-
-    async function displayData() {
-      const container = document.getElementById("data-container");
-      
-      // Load PapaParse from CDN
-      if (!window.Papa) {
-        const script = document.createElement("script");
-        script.src = "https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js";
-        script.onload = displayData;
-        document.body.appendChild(script);
-        return;
-      }
-
-      const data = await getRowData("Chapter 8 Questions");
-
-      if (data) {
-        container.innerHTML = `
-          <table>
-            <tr>
-              <th>Easy Data</th>
-              <th>Medium Data</th>
-              <th>Hard Data</th>
-            </tr>
-            <tr>
-              <td>${data.EasyData}</td>
-              <td>${data.MediumData}</td>
-              <td>${data.HardData}</td>
-            </tr>
-          </table>
-        `;
-      } else {
-        container.innerHTML = "<p>Data not found.</p>";
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", displayData);
-  </script>
+  <script src="getGoogleSheetsData.js" defer></script>
 </body>
 </html> 

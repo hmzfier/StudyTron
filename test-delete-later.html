@@ -1,0 +1,98 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="style.css">
+<script src="toggle.js" defer></script>
+</head>
+<body>
+
+
+<div id="sideMenu" class="menu">
+    <button onclick="window.location.href='index.html'">Home</button>
+    <button id="backToTop">Up</button>
+    <button id="toMiddle">Mid</button>
+    <button id="toBottom">Down</button>
+    <button id="toggleAnswers">Show</button>
+  </div>
+
+  <button id="menuButton">☰</button>
+  <button id="blepButton">SHOW</button>
+
+<p class="title">Chapter 8 Questions</p>
+
+
+
+<div divID="1">
+<hr class="divider"><p class="question">The 3 function of joints</p>
+<p class="answer">Movement and stability and growth of bones</p>
+
+            <div class="focus-btn-container">
+                <button class="focus-btn" data-divid="1" data-focus="1">Focus 1</button>
+                <button class="focus-btn" data-divid="1" data-focus="2">Focus 2</button>
+                <button class="focus-btn" data-divid="1" data-focus="3">Focus 3</button>
+            </div>
+        </div>
+<div divID="2">
+<hr class="divider"><p class="question">Synarthroses, Amphiarthroses, Diarthroses</p>
+<p class="answer">Synarthroses: Immovable joints (e.g., sutures of the skull)</p>
+<p class="answer">Amphiarthroses: Slightly movable joints (e.g., intervertebral discs, pubic symphysis)</p>
+<p class="answer">Diarthroses: Freely movable joints (e.g., shoulder, hip)</p>
+
+            <div class="focus-btn-container">
+                <button class="focus-btn" data-divid="2" data-focus="1">Focus 1</button>
+                <button class="focus-btn" data-divid="2" data-focus="2">Focus 2</button>
+                <button class="focus-btn" data-divid="2" data-focus="3">Focus 3</button>
+            </div>
+        </div>
+<div divID="3">
+<hr class="divider"><p class="question">What are fibrous joints made of?</p>
+<p class="answer">Dense regular connective tissue</p>
+
+            <div class="focus-btn-container">
+                <button class="focus-btn" data-divid="3" data-focus="1">Focus 1</button>
+                <button class="focus-btn" data-divid="3" data-focus="2">Focus 2</button>
+                <button class="focus-btn" data-divid="3" data-focus="3">Focus 3</button>
+            </div>
+        </div>
+<div divID="4">
+<hr class="divider"><p class="question">What do synovial joints have on the surface?</p>
+<p class="answer">Hyaline cartilage</p>
+
+            <div class="focus-btn-container">
+                <button class="focus-btn" data-divid="4" data-focus="1">Focus 1</button>
+                <button class="focus-btn" data-divid="4" data-focus="2">Focus 2</button>
+                <button class="focus-btn" data-divid="4" data-focus="3">Focus 3</button>
+            </div>
+        </div>
+<div divID="5">
+<hr class="divider"><p class="question">What covers the end of synovial joints?</p>
+<p class="answer">Articular Cartilage</p>
+
+            <div class="focus-btn-container">
+                <button class="focus-btn" data-divid="5" data-focus="1">Focus 1</button>
+                <button class="focus-btn" data-divid="5" data-focus="2">Focus 2</button>
+                <button class="focus-btn" data-divid="5" data-focus="3">Focus 3</button>
+            </div>
+        </div>
+
+
+
+
+  <div class="bottom-spacer"></div>
+
+  <div id="debugOutput"></div>
+
+  <script src="focusData.js" defer></script>
+
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+  <script src="getGoogleSheetsData.js" defer></script>
+
+  <script src="menujs.js" defer></script>
+
+  <button id="submitToSheet" class="focus-submit-btn">Submit Focus Data to Google Sheets</button>
+
+</body>
+</html> 

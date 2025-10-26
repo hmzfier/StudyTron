@@ -8,55 +8,82 @@ submitBtn.addEventListener('click', () => {
     const title = titleInput.value.trim();
     const lines = inputText.value.split('\n');
     let htmlOutput = '';
+    let divID = 1; // div counter
+    let currentDivContent = null; // accumulate question + choices + answer
+    let waitingForAnswer = false; // true after a question is added
 
     if (title) {
         htmlOutput += `<p class="title">${title}</p>\n\n`;
     }
 
-    let lastWasQuestion = false;
-
     lines.forEach(line => {
         const trimmed = line.trim();
-        if (!trimmed) {
-            lastWasQuestion = false; // blank line resets question flag
+        if (!trimmed) return; // skip empty lines
+
+        const tabCount = line.match(/^\t*/)[0].length;
+
+        // Detect titles starting with ***
+        if (trimmed.startsWith('***')) {
+            // Close current div if open
+            if (currentDivContent) {
+                htmlOutput += `<div divID="${divID}">\n${currentDivContent}${generateFocusButtons(divID)}</div>\n`;
+                divID++;
+                currentDivContent = null;
+                waitingForAnswer = false;
+            }
+            htmlOutput += `<hr class="divider"><p class="subTopicHeader">${trimmed.substring(3).trim()}</p>\n`;
             return;
         }
 
-        const tabCount = line.match(/^\t*/)[0].length;
-        let htmlLine = '';
-
-        // Detect titles starting with *** and remove ***
-        if (trimmed.startsWith('***')) {
-            const cleanTitle = trimmed.replace(/^\*{3}/, '').trim(); // remove leading ***
-            htmlLine = `<hr class="divider"><p class="subTopicHeader">${cleanTitle}</p>`;
-            lastWasQuestion = false; // reset question flag after title
-        } 
-        else if (tabCount === 0) {
-            if (!lastWasQuestion) {
-                // This is a new question
-                htmlLine = `<hr class="divider"><p class="question">${trimmed}</p>`;
-                lastWasQuestion = true;
-            } else {
-                // This is a question choice (single new line after a question)
-                htmlLine = `<p class="questionChoice">${trimmed}</p>`;
+        // New question (no tabs)
+        if (tabCount === 0 && !waitingForAnswer) {
+            // Close previous div if somehow still open
+            if (currentDivContent) {
+                htmlOutput += `<div divID="${divID}">\n${currentDivContent}${generateFocusButtons(divID)}</div>\n`;
+                divID++;
             }
+            currentDivContent = `<hr class="divider"><p class="question">${trimmed}</p>\n`;
+            waitingForAnswer = true; // now expecting choices or answer
         } 
-        else if (tabCount >= 1) {
-            // This is an answer
-            htmlLine = `<p class="answer">${trimmed}</p>`;
-            lastWasQuestion = false; // reset after an answer
+        else if (tabCount === 0 && waitingForAnswer) {
+            // Choices for the current question
+            currentDivContent += `<p class="questionChoice">${trimmed}</p>\n`;
         }
+        else if (tabCount >= 1 && waitingForAnswer) {
+            // Answer line (tabbed)
+            currentDivContent += `<p class="answer">${trimmed}</p>\n`;
 
-        htmlOutput += htmlLine + '\n';
+            // After adding answer, close the div
+            htmlOutput += `<div divID="${divID}">\n${currentDivContent}${generateFocusButtons(divID)}</div>\n`;
+            divID++;
+            currentDivContent = null;
+            waitingForAnswer = false;
+        }
     });
+
+    // If the last question didn't have a tabbed answer, close it anyway
+    if (currentDivContent) {
+        htmlOutput += `<div divID="${divID}">\n${currentDivContent}${generateFocusButtons(divID)}</div>\n`;
+    }
 
     outputHtml.textContent = htmlOutput;
 });
 
+// Function to generate 3 focus buttons for a div
+function generateFocusButtons(divID) {
+    return `
+        <div class="focus-btn-container">
+            <button class="focus-btn" data-divid="${divID}" data-focus="1">Focus 1</button>
+            <button class="focus-btn" data-divid="${divID}" data-focus="2">Focus 2</button>
+            <button class="focus-btn" data-divid="${divID}" data-focus="3">Focus 3</button>
+        </div>
+    `;
+}
+
 // Copy title + output to clipboard silently
 copyBtn.addEventListener('click', () => {
     const textToCopy = outputHtml.textContent;
-    if (!textToCopy) return; // nothing to copy
+    if (!textToCopy) return;
 
     navigator.clipboard.writeText(textToCopy)
         .catch(err => console.error('Failed to copy: ', err));

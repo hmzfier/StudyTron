@@ -215,6 +215,39 @@ button {
   touch-action: manipulation; /* disables zoom on mobile */
 }
 
+
+
+
+
+
+
+
+.focus-btn-container {
+    margin-top: 10px;
+}
+
+.focus-btn {
+    margin-right: 5px;
+    padding: 5px 10px;
+    border: 1px solid #007bff;
+    background-color: #fff;
+    color: #007bff;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.focus-btn:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.focus-btn.selected {
+    background-color: #007bff;
+    color: #fff;
+}
+
+
 /*#toggleAnswers {
   position: fixed;
   bottom: 80px;

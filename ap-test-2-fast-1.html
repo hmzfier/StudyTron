@@ -21,7 +21,7 @@
   <button id="menuButton">☰</button>
   <button id="blepButton">SHOW</button>
 
-<p class="title">Fast 1 G Sheets 2</p>
+<p class="title">Fast 1 G Sheets 3</p>
 
 <p class="chapterHeader">Chapter 6</p>
 <hr class="divider"><p class="question">What are the 3 main structures of the skeletal system?</p>
@@ -66,49 +66,58 @@
 
 
 
+    <div id="data-container">Loading...</div>
+
   <script>
-document.addEventListener("DOMContentLoaded", async () => {
-    const container = document.getElementById("data-container");
     const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSfC2fDjdQH3W3Y3eRktW01871ZAkvpMHNAwIjfQNajGh4YfnPIhO6cJoZ0G17BXZErmWHRZLtN1e_g/pub?gid=0&single=true&output=csv";
 
     async function getRowData(searchName) {
-        const response = await fetch(sheetUrl);
-        const csvText = await response.text();
+      const response = await fetch(sheetUrl);
+      const csvText = await response.text();
 
-        const rows = csvText.split("\n").map(row => row.split(","));
-        const headers = rows[0];
-        const nameIndex = headers.indexOf("Name");
-        const easyIndex = headers.indexOf("EasyData");
-        const mediumIndex = headers.indexOf("MediumData");
-        const hardIndex = headers.indexOf("HardData");
+      // Parse CSV robustly using split on newline, then handle quoted commas
+      const rows = Papa.parse(csvText, { header: true }).data;
 
-        for (let i = 1; i < rows.length; i++) {
-            if (rows[i][nameIndex] === searchName) {
-                return {
-                    EasyData: rows[i][easyIndex],
-                    MediumData: rows[i][mediumIndex],
-                    HardData: rows[i][hardIndex]
-                };
-            }
-        }
-        return null;
+      // Find the row with the matching name
+      const row = rows.find(r => r.Name === searchName);
+      return row || null;
     }
 
-    const data = await getRowData("Chapter 8 Questions");
+    async function displayData() {
+      const container = document.getElementById("data-container");
+      
+      // Load PapaParse from CDN
+      if (!window.Papa) {
+        const script = document.createElement("script");
+        script.src = "https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js";
+        script.onload = displayData;
+        document.body.appendChild(script);
+        return;
+      }
 
-    if (data) {
+      const data = await getRowData("Chapter 8 Questions");
+
+      if (data) {
         container.innerHTML = `
-            <p><strong>Easy Data:</strong> ${data.EasyData}</p>
-            <p><strong>Medium Data:</strong> ${data.MediumData}</p>
-            <p><strong>Hard Data:</strong> ${data.HardData}</p>
+          <table>
+            <tr>
+              <th>Easy Data</th>
+              <th>Medium Data</th>
+              <th>Hard Data</th>
+            </tr>
+            <tr>
+              <td>${data.EasyData}</td>
+              <td>${data.MediumData}</td>
+              <td>${data.HardData}</td>
+            </tr>
+          </table>
         `;
-    } else {
+      } else {
         container.innerHTML = "<p>Data not found.</p>";
+      }
     }
-});
-</script>
 
-  <script src="menujs.js" defer></script>
-
+    document.addEventListener("DOMContentLoaded", displayData);
+  </script>
 </body>
 </html> 

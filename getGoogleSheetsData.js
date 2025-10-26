@@ -4,12 +4,17 @@ async function getRowData(searchName) {
     const response = await fetch(sheetUrl);
     const csvText = await response.text();
 
-    // Parse CSV properly
-    const parsed = Papa.parse(csvText, { header: true });
+    // Parse CSV properly with PapaParse
+    const parsed = Papa.parse(csvText, {
+        header: true,       // Treat the first row as header
+        skipEmptyLines: true // Ignore empty rows
+    });
+
     const rows = parsed.data;
 
     // Find the row with the matching name
     const row = rows.find(r => r.Name.trim() === searchName);
+
     return row || null;
 }
 

@@ -42,4 +42,3 @@
         container.innerHTML = "<p>Data not found.</p>";
       }
     });
-  </script>

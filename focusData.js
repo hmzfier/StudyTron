@@ -4,7 +4,7 @@ const focusArray2 = [];
 const focusArray3 = [];
 
 // Function to update debug output
-function updateDebug() {
+/*function updateDebug() {
     let debugContainer = document.getElementById('debugOutput');
 
     // Create debug container if it doesn't exist
@@ -23,7 +23,7 @@ function updateDebug() {
         <p><strong>Focus 2:</strong> [${focusArray2.join(', ')}]</p>
         <p><strong>Focus 3:</strong> [${focusArray3.join(', ')}]</p>
     `;
-}
+}*/
 
 // Function to attach click events to the focus buttons
 function initFocusButtons() {
@@ -35,20 +35,65 @@ function initFocusButtons() {
             const focus = parseInt(btn.dataset.focus);
 
             let arr;
-            if (focus === 1) arr = focusArray1;
-            else if (focus === 2) arr = focusArray2;
-            else arr = focusArray3;
+            let containerClass;
+            if (focus === 1) { arr = focusArray1; containerClass = 'focus1Container'; }
+            else if (focus === 2) { arr = focusArray2; containerClass = 'focus2Container'; }
+            else { arr = focusArray3; containerClass = 'focus3Container'; }
 
             const index = arr.indexOf(divID);
             if (index === -1) {
                 arr.push(divID);
                 btn.classList.add('selected');
+
+                // Clone the div
+                const originalDiv = document.querySelector(`div[divID="${divID}"]`);
+                if (!originalDiv) return;
+
+                const clone = originalDiv.cloneNode(true);
+
+                // Remove the focus buttons from the clone
+                const focusButtons = clone.querySelectorAll('.focus-btn');
+                focusButtons.forEach(b => b.remove());
+
+                // Add a remove button
+                const removeBtn = document.createElement('button');
+                removeBtn.textContent = 'Remove';
+                removeBtn.className = 'remove-btn';
+                removeBtn.style.marginTop = '5px';
+                removeBtn.addEventListener('click', () => {
+                    // Remove div from container
+                    clone.remove();
+
+                    // Remove divID from array
+                    const removeIndex = arr.indexOf(divID);
+                    if (removeIndex !== -1) arr.splice(removeIndex, 1);
+
+                    // Unhighlight the original focus button
+                    const originalBtn = document.querySelector(`.focus-btn[data-divid="${divID}"][data-focus="${focus}"]`);
+                    if (originalBtn) originalBtn.classList.remove('selected');
+
+                    updateDebug();
+                });
+
+                clone.appendChild(removeBtn);
+
+                // Append clone to the correct container
+                const container = document.querySelector(`.${containerClass}`);
+                if (container) container.appendChild(clone);
+
             } else {
+                // Already selected: remove from array and remove clone
                 arr.splice(index, 1);
                 btn.classList.remove('selected');
+
+                const container = document.querySelector(`.${containerClass}`);
+                if (container) {
+                    const clone = container.querySelector(`div[divID="${divID}"]`);
+                    if (clone) clone.remove();
+                }
             }
 
-            updateDebug();
+            //updateDebug();
         });
     });
 }
@@ -59,28 +104,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-const submitToSheetBtn = document.getElementById("submitToSheet");
 
-submitToSheetBtn.addEventListener("click", () => {
-    const pageTitleElement = document.querySelector(".title");
-    const title = pageTitleElement ? pageTitleElement.textContent.trim() : null;
-    if (!title) return alert("No page title found");
 
-    const payload = {
-        title: title,
-        focus1: focusArray1,
-        focus2: focusArray2,
-        focus3: focusArray3
-    };
 
-    fetch("https://script.google.com/macros/s/AKfycbz_PIFgFdfUMdSfO8kjMCThYc6ENo17oLAi1NA2EhDUfGmpXDjA7q_Pri1To9XKSzaT/exec", {
-        method: "POST",
-        body: JSON.stringify(payload),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-    .then(res => res.text())
-    .then(response => alert("Google Sheets updated: " + response))
-    .catch(err => alert("Error updating Google Sheets: " + err));
-});
+
+

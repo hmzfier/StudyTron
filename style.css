@@ -228,25 +228,41 @@ button {
 
 .focus-btn {
     margin-right: 5px;
-    padding: 5px 10px;
-    border: 1px solid #007bff;
-    background-color: #fff;
-    color: #007bff;
+    padding: 10px 10px;
+    border: 1px solid #404040;
+    background-color: #404040;
+    color: #fff;
     cursor: pointer;
     border-radius: 4px;
     transition: all 0.2s;
 }
 
 .focus-btn:hover {
-    background-color: #007bff;
+    background-color: #c935d6;
     color: #fff;
 }
 
 .focus-btn.selected {
-    background-color: #007bff;
+    background-color: #0b76ff;
     color: #fff;
 }
 
+
+.remove-btn {
+    margin-top: 5px;
+    padding: 10px 15px;
+    background-color: #585858;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+.remove-btn:hover {
+    background-color: #ff7875;
+}
 
 /*#toggleAnswers {
   position: fixed;

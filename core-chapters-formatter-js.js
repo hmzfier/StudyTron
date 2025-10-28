@@ -1,5 +1,5 @@
-
-document.addEventListener("DOMContentLoaded", () => {
+//V4 - Works - note this was the new code that added the focus buttons
+/*document.addEventListener("DOMContentLoaded", () => {
     const inputText = document.getElementById("inputText");
     const submitBtn = document.getElementById("submitBtn");
     const copyBtn = document.getElementById("copyBtn");
@@ -58,12 +58,14 @@ document.addEventListener("DOMContentLoaded", () => {
     function generateFocusButtons(divID) {
         return `
             <div class="focus-btn-container">
-                <button class="focus-btn" data-divid="${divID}" data-focus="1">Focus 1</button>
-                <button class="focus-btn" data-divid="${divID}" data-focus="2">Focus 2</button>
-                <button class="focus-btn" data-divid="${divID}" data-focus="3">Focus 3</button>
+                <button class="focus-btn" data-divid="${divID}" data-focus="1">Focus</button>
             </div>
         `;
     }
+
+    //If i ever want to add more focus buttons, I can just add these buttons to the above return code
+    //<button class="focus-btn" data-divid="${divID}" data-focus="2">Focus 2</button>
+    //<button class="focus-btn" data-divid="${divID}" data-focus="3">Focus 3</button>
 
     submitBtn.addEventListener("click", () => {
         const formattedHTML = formatTextToHTML(inputText.value);
@@ -77,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(() => alert("HTML copied to clipboard!"))
             .catch(err => alert("Failed to copy: " + err));
     });
-});
+});*/
 
 
 
@@ -242,7 +244,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 //V1 - works
-/*document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
     const inputText = document.getElementById("inputText");
     const submitBtn = document.getElementById("submitBtn");
     const copyBtn = document.getElementById("copyBtn");
@@ -289,4 +291,4 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(() => alert("HTML copied to clipboard!"))
             .catch(err => alert("Failed to copy: " + err));
     });
-});*/
+});

@@ -32,11 +32,11 @@ function formatTextToHTML(text) {
             // Detect =G1= or =G2=
             if (trimmedLine.startsWith("=1")) {
                 groupType = "G1";
-                questionText = trimmedLine.substring(2).trim(); // remove =G1=
+                questionText = trimmedLine.substring(3).trim(); // remove =G1=
             }
             else if (trimmedLine.startsWith("=2")) {
                 groupType = "G2";
-                questionText = trimmedLine.substring(2).trim(); // remove =G2=
+                questionText = trimmedLine.substring(3).trim(); // remove =G2=
             }
 
             htmlOutput += `<div data-group-type="${groupType}">\n`;

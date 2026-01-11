@@ -1,10 +1,3 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #303030;
-    color: #ffffff;
-    margin: 20px;
-}
-
 input, textarea {
     width: 100%;
     max-width: 800px;
@@ -13,27 +6,238 @@ input, textarea {
     box-sizing: border-box;
 }
 
+/*disables zoom on mobile browsers */
+html {
+  touch-action: manipulation;
+}
+body {
+    /*background-color: #303030;*/
+    background-color: #2d2d2d;
+    margin: 0; /* remove to prevent double-width */
+    padding: 20px; /* single padding inside */
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    overflow-x: hidden; /* ensure no horizontal scroll */
+    touch-action: manipulation;
+}
+.title {
+    color: #e74c3c;        /* Sets the font color to blue */
+    font-size: 25px;    /* Sets the font size to 12 pixels */
+    margin-top:10px;
+}
+.divider {
+    border: none;
+    height: 2px;
+    background-color: #7f8c8d;
+    width: 100%;
+    margin: 20px auto;
+}
+
+.chapterHeader {
+    font-weight: bold;
+    font-size: 30px;
+    margin-top: 20px;
+    color: #ee611d;
+}
+
+.topicHeader {
+    color: #10ac84;        /* Sets the font color to blue */
+    font-size: 18px;    /* Sets the font size to 12 pixels */
+    margin-top:20px;
+
+}
+.subTopicHeader {
+    color: #ffffff;        /* Sets the font color to blue */
+    font-size: 18px;    /* Sets the font size to 12 pixels */
+    margin-top:30px;
+    background-color:#c0392b;
+    padding:10px;
+}
+
+.question {
+    /*color: #54a0ff; */       /* Sets the font color to blue */
+    color: #53d35b;
+    font-size: 18px;    /* Sets the font size to 12 pixels */
+    margin-top:30px;
+}
+
+.questionChoice {
+    color: #ffa502;        /* Sets the font color to blue */
+    font-size: 16px;    /* Sets the font size to 12 pixels */
+    margin-top:30px;
+}
+
+.answer {
+    color: rgb(255, 255, 255);        /* Sets the font color to blue */
+    font-size: 18px;    /* Sets the font size to 12 pixels */
+    margin-top:30px;
+}
+
+.answer2 {
+    color: rgb(255, 255, 255);        /* Sets the font color to blue */
+    font-size: 18px;    /* Sets the font size to 12 pixels */
+    margin-top:30px;
+    margin-left:40px;
+}
+
 button {
+    max-width: 90vw; /* ensures buttons never exceed screen width */
+  }
+
+.highlight {
+  color: #fd3ac3;        /* Sets the font color to blue */
+  font-size: 18px;    /* Sets the font size to 12 pixels */
+  margin-top:30px;
+}
+  
+
+
+.bottom-spacer {
+    height: 200px;  
+    width: 100%;    
+  }
+
+
+.menu {
+  position: fixed;
+  top: 0;
+  right: -40%;
+  width: 40%;
+  height: 100%;
+  background-color: #333;
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Align buttons to top */
+  
+  padding-top: 20px;           /* optional spacing from top */
+  box-sizing: border-box;
+
+  overflow-y: auto;            /* vertical scroll if too big */
+  transition: right 0.4s ease;
+  z-index: 1000;
+
+   overflow-x: hidden;  /* Prevent horizontal scroll */
+}
+
+.menu button {
+  background-color: #444;
+  color: white;
+  border: none;
+  padding: 15px;
+  margin: 10px;
+  width: 80%;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+
+.menu button:hover {
+  background-color: #555;
+}
+
+/* When menu is active */
+.menu.active {
+  right: 0;
+}
+
+/* Menu button (always bottom right) */
+#menuButton {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #a4b0be;
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 1100;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  transition: background-color 0.3s;
+}
+
+#blepButton {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  background-color: #a4b0be;
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 1100;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  transition: background-color 0.3s;
+  touch-action: manipulation; /* disables zoom on mobile */
+}
+
+
+
+
+
+
+
+
+.focus-btn-container {
+    margin-top: 10px;
+}
+
+.focus-btn {
+    margin-right: 5px;
+    padding: 10px 10px;
+    border: 1px solid #404040;
+    background-color: #404040;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.focus-btn:hover {
+    background-color: #c935d6;
+    color: #fff;
+}
+
+.focus-btn.selected {
+    background-color: #0b76ff;
+    color: #fff;
+}
+
+
+.remove-btn {
+    margin-top: 5px;
+    padding: 10px 15px;
+    background-color: #585858;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+.remove-btn:hover {
+    background-color: #ff7875;
+}
+
+
+ #submitBtn {
     margin-top: 10px;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
 }
 
-.topicHeader {
-    font-weight: bold;
-    font-size: 20px;
-    margin-top: 20px;
-    color: #ffcc00;
-}
 
-.question {
-    font-weight: bold;
-    margin-left: 20px;
-    margin-top: 10px;
-}
-
-.answer {
-    margin-left: 40px;
-    margin-top: 5px;
+#outputHtml {
+    font-family: Arial, sans-serif;
+    white-space: normal;
 }

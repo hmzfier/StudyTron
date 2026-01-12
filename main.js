@@ -10,6 +10,24 @@ document.addEventListener("DOMContentLoaded", () => {
     // Filters
     const filterG1Btn = document.getElementById("filterG1");
     const filterG2Btn = document.getElementById("filterG2");
+    const filterG3Btn = document.getElementById("filterG3");
+    const filterG4Btn = document.getElementById("filterG4");
+    const filterG5Btn = document.getElementById("filterG5");
+    const filterG6Btn = document.getElementById("filterG6");
+    const filterG7Btn = document.getElementById("filterG7");
+    const filterG8Btn = document.getElementById("filterG8");
+    const filterG9Btn = document.getElementById("filterG9");
+    const filterG10Btn = document.getElementById("filterG10");
+    const filterG11Btn = document.getElementById("filterG11");
+    const filterG12Btn = document.getElementById("filterG12");
+    const filterG13Btn = document.getElementById("filterG13");
+    const filterG14Btn = document.getElementById("filterG14");
+    const filterG15Btn = document.getElementById("filterG15");
+    const filterG16Btn = document.getElementById("filterG16");
+    const filterG17Btn = document.getElementById("filterG17");
+    const filterG18Btn = document.getElementById("filterG18");
+    const filterG19Btn = document.getElementById("filterG19");
+    const filterG20Btn = document.getElementById("filterG20");
     const filterAllBtn = document.getElementById("filterAll");
 
     // Pagination elements (top)
@@ -45,9 +63,63 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (trimmedLine.startsWith("=1")) {
                     groupType = "G1";
-                    questionText = trimmedLine.substring(3).trim();
+                    questionText = trimmedLine.substring(2).trim();
                 } else if (trimmedLine.startsWith("=2")) {
                     groupType = "G2";
+                    questionText = trimmedLine.substring(2).trim();
+                } else if (trimmedLine.startsWith("=3")) {
+                    groupType = "G3";
+                    questionText = trimmedLine.substring(2).trim();
+                } else if (trimmedLine.startsWith("=4")) {
+                    groupType = "G4";
+                    questionText = trimmedLine.substring(2).trim();
+                } else if (trimmedLine.startsWith("=5")) {
+                    groupType = "G5";
+                    questionText = trimmedLine.substring(2).trim();
+                } else if (trimmedLine.startsWith("=6")) {
+                    groupType = "G6";
+                    questionText = trimmedLine.substring(2).trim();
+                } else if (trimmedLine.startsWith("=7")) {
+                    groupType = "G7";
+                    questionText = trimmedLine.substring(2).trim();
+                } else if (trimmedLine.startsWith("=8")) {
+                    groupType = "G8";
+                    questionText = trimmedLine.substring(2).trim();
+                } else if (trimmedLine.startsWith("=9")) {
+                    groupType = "G9";
+                    questionText = trimmedLine.substring(2).trim();
+                } else if (trimmedLine.startsWith("=10")) {
+                    groupType = "G10";
+                    questionText = trimmedLine.substring(3).trim();
+                } else if (trimmedLine.startsWith("=11")) {
+                    groupType = "G11";
+                    questionText = trimmedLine.substring(3).trim();
+                } else if (trimmedLine.startsWith("=12")) {
+                    groupType = "G12";
+                    questionText = trimmedLine.substring(3).trim();
+                } else if (trimmedLine.startsWith("=13")) {
+                    groupType = "G13";
+                    questionText = trimmedLine.substring(3).trim();
+                } else if (trimmedLine.startsWith("=14")) {
+                    groupType = "G14";
+                    questionText = trimmedLine.substring(3).trim();
+                } else if (trimmedLine.startsWith("=15")) {
+                    groupType = "G15";
+                    questionText = trimmedLine.substring(3).trim();
+                } else if (trimmedLine.startsWith("=16")) {
+                    groupType = "G16";
+                    questionText = trimmedLine.substring(3).trim();
+                } else if (trimmedLine.startsWith("=17")) {
+                    groupType = "G17";
+                    questionText = trimmedLine.substring(3).trim();
+                } else if (trimmedLine.startsWith("=18")) {
+                    groupType = "G18";
+                    questionText = trimmedLine.substring(3).trim();
+                } else if (trimmedLine.startsWith("=19")) {
+                    groupType = "G19";
+                    questionText = trimmedLine.substring(3).trim();
+                } else if (trimmedLine.startsWith("=20")) {
+                    groupType = "G20";
                     questionText = trimmedLine.substring(3).trim();
                 }
 
@@ -56,6 +128,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 htmlOutput += `<hr class="divider"><p class="question">${questionText}</p>\n`;
             } else if (trimmedLine.startsWith("+")) {
                 htmlOutput += `<p class="highlight">${trimmedLine.substring(1).trim()}</p>\n`;
+            } else if (trimmedLine.startsWith("@")) {
+                htmlOutput += `<p class="questionChoice">${trimmedLine.substring(1).trim()}</p>\n`;
             } else if (trimmedLine.startsWith("***")) {
                 htmlOutput += `<p class="chapterHeader">${trimmedLine.substring(3).trim()}</p>\n`;
             } else if (trimmedLine.startsWith("-")) {
@@ -185,6 +259,7 @@ document.addEventListener("DOMContentLoaded", () => {
     showAllBtnBottom.addEventListener("click", () => goToPage(0));
 
     // Filters (G1/G2)
+    // Filters (G1 → G20)
     filterG1Btn.addEventListener("click", () => {
         document.querySelectorAll('[data-group-type]').forEach(div => {
             div.style.display = div.dataset.groupType === "G1" ? "block" : "none";
@@ -200,6 +275,151 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
         mainTitle.textContent = "Group 2";
     });
+
+    filterG3.addEventListener("click", () => {
+        document.querySelectorAll('[data-group-type]').forEach(div => {
+            div.style.display = div.dataset.groupType === "G3" ? "block" : "none";
+        });
+        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
+        mainTitle.textContent = "Group 3";
+    });
+
+    filterG4.addEventListener("click", () => {
+        document.querySelectorAll('[data-group-type]').forEach(div => {
+            div.style.display = div.dataset.groupType === "G4" ? "block" : "none";
+        });
+        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
+        mainTitle.textContent = "Group 4";
+    });
+
+    filterG5.addEventListener("click", () => {
+        document.querySelectorAll('[data-group-type]').forEach(div => {
+            div.style.display = div.dataset.groupType === "G5" ? "block" : "none";
+        });
+        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
+        mainTitle.textContent = "Group 5";
+    });
+
+    filterG6.addEventListener("click", () => {
+        document.querySelectorAll('[data-group-type]').forEach(div => {
+            div.style.display = div.dataset.groupType === "G6" ? "block" : "none";
+        });
+        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
+        mainTitle.textContent = "Group 6";
+    });
+
+    filterG7.addEventListener("click", () => {
+        document.querySelectorAll('[data-group-type]').forEach(div => {
+            div.style.display = div.dataset.groupType === "G7" ? "block" : "none";
+        });
+        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
+        mainTitle.textContent = "Group 7";
+    });
+
+    filterG8.addEventListener("click", () => {
+        document.querySelectorAll('[data-group-type]').forEach(div => {
+            div.style.display = div.dataset.groupType === "G8" ? "block" : "none";
+        });
+        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
+        mainTitle.textContent = "Group 8";
+    });
+
+    filterG9.addEventListener("click", () => {
+        document.querySelectorAll('[data-group-type]').forEach(div => {
+            div.style.display = div.dataset.groupType === "G9" ? "block" : "none";
+        });
+        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
+        mainTitle.textContent = "Group 9";
+    });
+
+    filterG10.addEventListener("click", () => {
+        document.querySelectorAll('[data-group-type]').forEach(div => {
+            div.style.display = div.dataset.groupType === "G10" ? "block" : "none";
+        });
+        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
+        mainTitle.textContent = "Group 10";
+    });
+
+    filterG11.addEventListener("click", () => {
+        document.querySelectorAll('[data-group-type]').forEach(div => {
+            div.style.display = div.dataset.groupType === "G11" ? "block" : "none";
+        });
+        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
+        mainTitle.textContent = "Group 11";
+    });
+
+    filterG12.addEventListener("click", () => {
+        document.querySelectorAll('[data-group-type]').forEach(div => {
+            div.style.display = div.dataset.groupType === "G12" ? "block" : "none";
+        });
+        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
+        mainTitle.textContent = "Group 12";
+    });
+
+    filterG13.addEventListener("click", () => {
+        document.querySelectorAll('[data-group-type]').forEach(div => {
+            div.style.display = div.dataset.groupType === "G13" ? "block" : "none";
+        });
+        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
+        mainTitle.textContent = "Group 13";
+    });
+
+    filterG14.addEventListener("click", () => {
+        document.querySelectorAll('[data-group-type]').forEach(div => {
+            div.style.display = div.dataset.groupType === "G14" ? "block" : "none";
+        });
+        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
+        mainTitle.textContent = "Group 14";
+    });
+
+    filterG15.addEventListener("click", () => {
+        document.querySelectorAll('[data-group-type]').forEach(div => {
+            div.style.display = div.dataset.groupType === "G15" ? "block" : "none";
+        });
+        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
+        mainTitle.textContent = "Group 15";
+    });
+
+    filterG16.addEventListener("click", () => {
+        document.querySelectorAll('[data-group-type]').forEach(div => {
+            div.style.display = div.dataset.groupType === "G16" ? "block" : "none";
+        });
+        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
+        mainTitle.textContent = "Group 16";
+    });
+
+    filterG17.addEventListener("click", () => {
+        document.querySelectorAll('[data-group-type]').forEach(div => {
+            div.style.display = div.dataset.groupType === "G17" ? "block" : "none";
+        });
+        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
+        mainTitle.textContent = "Group 17";
+    });
+
+    filterG18.addEventListener("click", () => {
+        document.querySelectorAll('[data-group-type]').forEach(div => {
+            div.style.display = div.dataset.groupType === "G18" ? "block" : "none";
+        });
+        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
+        mainTitle.textContent = "Group 18";
+    });
+
+    filterG19.addEventListener("click", () => {
+        document.querySelectorAll('[data-group-type]').forEach(div => {
+            div.style.display = div.dataset.groupType === "G19" ? "block" : "none";
+        });
+        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
+        mainTitle.textContent = "Group 19";
+    });
+
+    filterG20.addEventListener("click", () => {
+        document.querySelectorAll('[data-group-type]').forEach(div => {
+            div.style.display = div.dataset.groupType === "G20" ? "block" : "none";
+        });
+        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
+        mainTitle.textContent = "Group 20";
+    });
+
 
     filterAllBtn.addEventListener("click", () => {
         document.querySelectorAll('[data-group-type]').forEach(div => div.style.display = "block");

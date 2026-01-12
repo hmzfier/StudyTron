@@ -241,3 +241,44 @@ button {
     font-family: Arial, sans-serif;
     white-space: normal;
 }
+
+.arrow {
+    color: #77ff29;  
+}
+
+
+#pagination {
+  margin-top: 15px;
+}
+
+#pagination button {
+  padding: 10px 15px;
+  margin-right: 5px;
+  margin-top: 5px;
+  font-size: 16px;
+  border-radius: 6px;
+  background-color: #444;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+#pagination button:hover {
+  background-color: #666;
+}
+
+.page-btn {
+  background-color: #444;
+  color: white;
+}
+
+.page-btn.active {
+  background-color: #0b76ff;   /* blue highlight */
+  color: white;
+}
+
+#pagination button.active,
+.page-btn.active {
+  background-color: #0b76ff;
+  color: white;
+}

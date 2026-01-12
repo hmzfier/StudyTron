@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Core Chapter to HTML Formatter</title>
+    <title>StudyTron</title>
     <link rel="stylesheet" href="style.css">
     <script src="main.js" defer></script>
     <script src="toggle.js" defer></script>
@@ -14,44 +14,33 @@
     <textarea id="inputText" placeholder="Paste your text here..." rows="15" cols="60"></textarea>
     <br>
     <button id="submitBtn">Submit</button>
+    <button id="showTextBtn" style="display: none;">Show Text</button>
 
-<div id="pagination">
-  <button id="pageAll" class="page-btn">Show All</button>
-  <button id="page1" class="page-btn">1</button>
-  <button id="page2" class="page-btn">2</button>
-  <button id="page3" class="page-btn">3</button>
-  <button id="page4" class="page-btn">4</button>
-  <button id="page5" class="page-btn">5</button>
-  <button id="page6" class="page-btn">6</button>
-  <button id="page7" class="page-btn">7</button>
-  <button id="page8" class="page-btn">8</button>
-  <button id="page9" class="page-btn">9</button>
-  <button id="page10" class="page-btn">10</button>
-  <button id="page11" class="page-btn">11</button>
-  <button id="page12" class="page-btn">12</button>
-  <button id="page13" class="page-btn">13</button>
-  <button id="page14" class="page-btn">14</button>
-  <button id="page15" class="page-btn">15</button>
-  <button id="page16" class="page-btn">16</button>
-  <button id="page17" class="page-btn">17</button>
-  <button id="page18" class="page-btn">18</button>
-  <button id="page19" class="page-btn">19</button>
-  <button id="page20" class="page-btn">20</button>
-  <button id="page21" class="page-btn">21</button>
-  <button id="page22" class="page-btn">22</button>
-  <button id="page23" class="page-btn">23</button>
-  <button id="page24" class="page-btn">24</button>
-  <button id="page25" class="page-btn">25</button>
+
+    <!-- Pagination controls (top) -->
+<div class="pagination-container">
+  <button id="prevPage">Previous</button>
+  <select class="page-select" id="pageDropdownTop"></select>
+  <button id="nextPage">Next</button>
+  <button id="showAllPage">Show All</button>
 </div>
 
-    <pre id="outputHtml"></pre>
+<pre id="outputHtml"></pre>
+
+<!-- Pagination controls (bottom) -->
+<div class="pagination-container">
+  <button id="prevPageBottom">Previous</button>
+  <select class="page-select" id="pageDropdownBottom"></select>
+  <button id="nextPageBottom">Next</button>
+  <button id="showAllPageBottom">Show All</button>
+</div>
 
     <div id="sideMenu" class="menu">
-    <!--<button onclick="window.location.href='index.html'">Home</button>-->
+    <p class="menuText">Navigation</p>
     <button id="backToTop">Up</button>
     <button id="toMiddle">Mid</button>
     <button id="toBottom">Down</button>
-    <!--<button id="toggleAnswers">Show</button>-->
+    <p class="menuText">Groups</p>
     <button id="filterAll">Show All</button>
     <button id="filterG1">Show G1</button>
     <button id="filterG2">Show G2</button>

@@ -1,3 +1,4 @@
+/* General inputs and textarea */
 input, textarea {
     width: 100%;
     max-width: 800px;
@@ -6,25 +7,32 @@ input, textarea {
     box-sizing: border-box;
 }
 
-/*disables zoom on mobile browsers */
+/* Disable zoom on mobile browsers */
 html {
-  touch-action: manipulation;
-}
-body {
-    /*background-color: #303030;*/
-    background-color: #2d2d2d;
-    margin: 0; /* remove to prevent double-width */
-    padding: 20px; /* single padding inside */
-    font-family: Arial, sans-serif;
-    box-sizing: border-box;
-    overflow-x: hidden; /* ensure no horizontal scroll */
     touch-action: manipulation;
 }
+
+body {
+    background-color: #2d2d2d;
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+/* Titles */
 .title {
-    color: #e74c3c;        /* Sets the font color to blue */
-    font-size: 25px;    /* Sets the font size to 12 pixels */
+    color: #e74c3c;
+    font-size: 25px;
     margin-top:10px;
 }
+
+#mainTitle {
+    color: #f31a7f; /* main title color */
+}
+
+/* Divider */
 .divider {
     border: none;
     height: 2px;
@@ -33,6 +41,7 @@ body {
     margin: 20px auto;
 }
 
+/* Headers */
 .chapterHeader {
     font-weight: bold;
     font-size: 30px;
@@ -41,151 +50,122 @@ body {
 }
 
 .topicHeader {
-    color: #10ac84;        /* Sets the font color to blue */
-    font-size: 18px;    /* Sets the font size to 12 pixels */
-    margin-top:20px;
-
+    color: #10ac84;
+    font-size: 18px;
+    margin-top: 20px;
 }
+
 .subTopicHeader {
-    color: #ffffff;        /* Sets the font color to blue */
-    font-size: 18px;    /* Sets the font size to 12 pixels */
-    margin-top:30px;
-    background-color:#c0392b;
-    padding:10px;
+    color: #ffffff;
+    font-size: 18px;
+    margin-top: 30px;
+    background-color: #c0392b;
+    padding: 10px;
 }
 
+/* Question and answer styles */
 .question {
-    /*color: #54a0ff; */       /* Sets the font color to blue */
     color: #53d35b;
-    font-size: 18px;    /* Sets the font size to 12 pixels */
-    margin-top:30px;
+    font-size: 18px;
+    margin-top: 30px;
 }
 
 .questionChoice {
-    color: #ffa502;        /* Sets the font color to blue */
-    font-size: 16px;    /* Sets the font size to 12 pixels */
-    margin-top:30px;
+    color: #ffa502;
+    font-size: 16px;
+    margin-top: 30px;
 }
 
 .answer {
-    color: rgb(255, 255, 255);        /* Sets the font color to blue */
-    font-size: 18px;    /* Sets the font size to 12 pixels */
-    margin-top:30px;
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+    margin-top: 30px;
 }
 
 .answer2 {
-    color: rgb(255, 255, 255);        /* Sets the font color to blue */
-    font-size: 18px;    /* Sets the font size to 12 pixels */
-    margin-top:30px;
-    margin-left:40px;
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+    margin-top: 30px;
+    margin-left: 40px;
 }
-
-button {
-    max-width: 90vw; /* ensures buttons never exceed screen width */
-  }
 
 .highlight {
-  color: #fd3ac3;        /* Sets the font color to blue */
-  font-size: 18px;    /* Sets the font size to 12 pixels */
-  margin-top:30px;
+    color: #fd3ac3;
+    font-size: 18px;
+    margin-top: 30px;
 }
-  
 
-
+/* Bottom spacer */
 .bottom-spacer {
-    height: 200px;  
-    width: 100%;    
-  }
+    height: 200px;
+    width: 100%;
+}
 
-
+/* Menu */
 .menu {
-  position: fixed;
-  top: 0;
-  right: -40%;
-  width: 40%;
-  height: 100%;
-  background-color: #333;
-  color: white;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start; /* Align buttons to top */
-  
-  padding-top: 20px;           /* optional spacing from top */
-  box-sizing: border-box;
-
-  overflow-y: auto;            /* vertical scroll if too big */
-  transition: right 0.4s ease;
-  z-index: 1000;
-
-   overflow-x: hidden;  /* Prevent horizontal scroll */
+    position: fixed;
+    top: 0;
+    right: -40%;
+    width: 40%;
+    height: 100%;
+    background-color: #333;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    transition: right 0.4s ease;
+    z-index: 1000;
+    overflow-x: hidden;
 }
 
 .menu button {
-  background-color: #444;
-  color: white;
-  border: none;
-  padding: 15px;
-  margin: 10px;
-  width: 80%;
-  cursor: pointer;
-  font-size: 16px;
-  border-radius: 8px;
-  transition: background-color 0.3s;
+    background-color: #444;
+    color: white;
+    border: none;
+    padding: 15px;
+    margin: 10px;
+    width: 80%;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
 }
-
 
 .menu button:hover {
-  background-color: #555;
+    background-color: #555;
 }
 
-/* When menu is active */
+/* Menu active state */
 .menu.active {
-  right: 0;
+    right: 0;
 }
 
-/* Menu button (always bottom right) */
-#menuButton {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #a4b0be;
-  color: rgb(0, 0, 0);
-  border: none;
-  border-radius: 10px;
-  padding: 10px;
-  font-size: 16px;
-  cursor: pointer;
-  z-index: 1100;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-  transition: background-color 0.3s;
+/* Floating buttons */
+#menuButton, #blepButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #a4b0be;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 1100;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    transition: background-color 0.3s;
 }
 
 #blepButton {
-  position: fixed;
-  bottom: 80px;
-  right: 20px;
-  background-color: #a4b0be;
-  color: rgb(0, 0, 0);
-  border: none;
-  border-radius: 10px;
-  padding: 10px;
-  font-size: 16px;
-  cursor: pointer;
-  z-index: 1100;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-  transition: background-color 0.3s;
-  touch-action: manipulation; /* disables zoom on mobile */
+    bottom: 80px;
 }
 
-
-
-
-
-
-
-
+/* Focus buttons */
 .focus-btn-container {
     margin-top: 10px;
 }
@@ -211,7 +191,7 @@ button {
     color: #fff;
 }
 
-
+/* Remove button */
 .remove-btn {
     margin-top: 5px;
     padding: 10px 15px;
@@ -228,15 +208,18 @@ button {
     background-color: #ff7875;
 }
 
-
- #submitBtn {
+/* Submit button */
+#submitBtn {
+    color:#ffffff;
+    background-color:#0b76ff;
     margin-top: 10px;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
+    border: none;
 }
 
-
+/* Output container */
 #outputHtml {
     font-family: Arial, sans-serif;
     white-space: normal;
@@ -246,39 +229,68 @@ button {
     color: #77ff29;  
 }
 
-
-#pagination {
-  margin-top: 15px;
+/* Pagination container */
+.pagination-container {
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-#pagination button {
-  padding: 10px 15px;
-  margin-right: 5px;
-  margin-top: 5px;
-  font-size: 16px;
-  border-radius: 6px;
-  background-color: #444;
-  color: white;
-  border: none;
-  cursor: pointer;
+/* Buttons: Previous, Next, Show All (flat orange) */
+.pagination-container button {
+    padding: 8px 12px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #0eae00;
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease;
 }
 
-#pagination button:hover {
-  background-color: #666;
+.pagination-container button:hover {
+    background-color: #064d00;
 }
 
-.page-btn {
-  background-color: #444;
-  color: white;
+/* Show/Hide Text Button */
+#showTextBtn {
+    display: none; /* hidden initially */
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    background-color: #0b76ff;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.page-btn.active {
-  background-color: #0b76ff;   /* blue highlight */
-  color: white;
+#showTextBtn:hover {
+    background-color: #0957b0;
+    transform: scale(1.05);
 }
 
-#pagination button.active,
-.page-btn.active {
-  background-color: #0b76ff;
-  color: white;
+#showTextBtn:active {
+    transform: scale(0.98);
+}
+
+/* Pagination dropdown: default browser style with white background */
+.page-select {
+    font-size: 16px;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+
+
+#mainTitle {
+color: #f31a7f;  
+}
+
+.menuText {
+    color: #44df64;
 }

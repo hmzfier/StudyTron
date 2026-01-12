@@ -30,6 +30,8 @@ button2.addEventListener('click', () => {
     const answers = document.querySelectorAll('.answer');
     const answers2 = document.querySelectorAll('.answer2');
     const answers3 = document.querySelectorAll('.highlight');
+    const answers4 = document.querySelectorAll('.arrow');
+    const answers5 = document.querySelectorAll('.highlight2');
     
     answers.forEach(el => {
         el.style.color = isRed2 ? '#ffffff' : '#2d2d2d';
@@ -41,6 +43,12 @@ button2.addEventListener('click', () => {
 
     answers3.forEach(el => {
         el.style.color = isRed2 ? '#fd3ac3' : '#2d2d2d';
+    });
+    answers4.forEach(el => {
+        el.style.color = isRed2 ? '#77ff29' : '#2d2d2d';
+    });
+     answers5.forEach(el => {
+        el.style.color = isRed2 ? '#ff4039' : '#2d2d2d';
     });
 
     isRed2 = !isRed2; // Flip the toggle state

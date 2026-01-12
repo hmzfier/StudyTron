@@ -95,6 +95,12 @@ body {
     margin-top: 30px;
 }
 
+.highlight2 {
+    color: #ff4039;
+    font-size: 18px;
+    margin-top: 30px;
+}
+
 /* Bottom spacer */
 .bottom-spacer {
     height: 200px;
@@ -223,6 +229,7 @@ body {
 #outputHtml {
     font-family: Arial, sans-serif;
     white-space: normal;
+    /*display: inline-block;*/
 }
 
 .arrow {
@@ -293,4 +300,19 @@ color: #f31a7f;
 
 .menuText {
     color: #44df64;
+}
+
+.focus-btn, .remove-btn {
+    background-color: #444;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 12px;
+    padding: 8px 15px;
+}
+
+.focus-btn:hover, .remove-btn:hover {
+    background-color: #666;
 }

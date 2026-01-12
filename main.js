@@ -4,31 +4,23 @@ document.addEventListener("DOMContentLoaded", () => {
     const outputHtml = document.getElementById("outputHtml");
     const mainTitle = document.getElementById("mainTitle");
 
+
+    const showEasyBtn = document.getElementById("showEasyBtn");
+    const showMedBtn = document.getElementById("showMedBtn");
+    const showHardBtn = document.getElementById("showHardBtn");
+
     //show text area button
     const showTextBtn = document.getElementById("showTextBtn");
 
     // Filters
-    const filterG1Btn = document.getElementById("filterG1");
-    const filterG2Btn = document.getElementById("filterG2");
-    const filterG3Btn = document.getElementById("filterG3");
-    const filterG4Btn = document.getElementById("filterG4");
-    const filterG5Btn = document.getElementById("filterG5");
-    const filterG6Btn = document.getElementById("filterG6");
-    const filterG7Btn = document.getElementById("filterG7");
-    const filterG8Btn = document.getElementById("filterG8");
-    const filterG9Btn = document.getElementById("filterG9");
-    const filterG10Btn = document.getElementById("filterG10");
-    const filterG11Btn = document.getElementById("filterG11");
-    const filterG12Btn = document.getElementById("filterG12");
-    const filterG13Btn = document.getElementById("filterG13");
-    const filterG14Btn = document.getElementById("filterG14");
-    const filterG15Btn = document.getElementById("filterG15");
-    const filterG16Btn = document.getElementById("filterG16");
-    const filterG17Btn = document.getElementById("filterG17");
-    const filterG18Btn = document.getElementById("filterG18");
-    const filterG19Btn = document.getElementById("filterG19");
-    const filterG20Btn = document.getElementById("filterG20");
     const filterAllBtn = document.getElementById("filterAll");
+
+    const groupFilterButtons = {};
+
+    for (let i = 1; i <= 20; i++) {
+        groupFilterButtons[i] = document.getElementById("filterG" + i);
+    }
+
 
     // Pagination elements (top)
     const prevBtnTop = document.getElementById("prevPage");
@@ -46,105 +38,121 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentPage = 0;
     let totalPages = 0;
 
-    function formatTextToHTML(text) {
-        const lines = text.split("\n");
-        let htmlOutput = "";
-        let groupOpen = false;
+// Difficulty button listeners
+showEasyBtn.addEventListener("click", () => {
+    currentDifficultyFilter = "easy";
+    updateDifficultyView();
+    mainTitle.textContent = "Easy Questions";
+});
 
-        lines.forEach((line, index) => {
-            const trimmedLine = line.trim();
-            if (!trimmedLine) return;
+showMedBtn.addEventListener("click", () => {
+    currentDifficultyFilter = "med";
+    updateDifficultyView();
+    mainTitle.textContent = "Medium Questions";
+});
 
-            if (trimmedLine.startsWith("=")) {
-                if (groupOpen) htmlOutput += "</div>\n";
+showHardBtn.addEventListener("click", () => {
+    currentDifficultyFilter = "hard";
+    updateDifficultyView();
+    mainTitle.textContent = "Hard Questions";
+});
 
-                let groupType = "G0";
-                let questionText = trimmedLine.substring(1).trim();
+function formatTextToHTML(text) {
+    const lines = text.split("\n");
+    let htmlOutput = "";
+    let groupOpen = false;
 
-                if (trimmedLine.startsWith("=1")) {
-                    groupType = "G1";
-                    questionText = trimmedLine.substring(2).trim();
-                } else if (trimmedLine.startsWith("=2")) {
-                    groupType = "G2";
-                    questionText = trimmedLine.substring(2).trim();
-                } else if (trimmedLine.startsWith("=3")) {
-                    groupType = "G3";
-                    questionText = trimmedLine.substring(2).trim();
-                } else if (trimmedLine.startsWith("=4")) {
-                    groupType = "G4";
-                    questionText = trimmedLine.substring(2).trim();
-                } else if (trimmedLine.startsWith("=5")) {
-                    groupType = "G5";
-                    questionText = trimmedLine.substring(2).trim();
-                } else if (trimmedLine.startsWith("=6")) {
-                    groupType = "G6";
-                    questionText = trimmedLine.substring(2).trim();
-                } else if (trimmedLine.startsWith("=7")) {
-                    groupType = "G7";
-                    questionText = trimmedLine.substring(2).trim();
-                } else if (trimmedLine.startsWith("=8")) {
-                    groupType = "G8";
-                    questionText = trimmedLine.substring(2).trim();
-                } else if (trimmedLine.startsWith("=9")) {
-                    groupType = "G9";
-                    questionText = trimmedLine.substring(2).trim();
-                } else if (trimmedLine.startsWith("=10")) {
-                    groupType = "G10";
-                    questionText = trimmedLine.substring(3).trim();
-                } else if (trimmedLine.startsWith("=11")) {
-                    groupType = "G11";
-                    questionText = trimmedLine.substring(3).trim();
-                } else if (trimmedLine.startsWith("=12")) {
-                    groupType = "G12";
-                    questionText = trimmedLine.substring(3).trim();
-                } else if (trimmedLine.startsWith("=13")) {
-                    groupType = "G13";
-                    questionText = trimmedLine.substring(3).trim();
-                } else if (trimmedLine.startsWith("=14")) {
-                    groupType = "G14";
-                    questionText = trimmedLine.substring(3).trim();
-                } else if (trimmedLine.startsWith("=15")) {
-                    groupType = "G15";
-                    questionText = trimmedLine.substring(3).trim();
-                } else if (trimmedLine.startsWith("=16")) {
-                    groupType = "G16";
-                    questionText = trimmedLine.substring(3).trim();
-                } else if (trimmedLine.startsWith("=17")) {
-                    groupType = "G17";
-                    questionText = trimmedLine.substring(3).trim();
-                } else if (trimmedLine.startsWith("=18")) {
-                    groupType = "G18";
-                    questionText = trimmedLine.substring(3).trim();
-                } else if (trimmedLine.startsWith("=19")) {
-                    groupType = "G19";
-                    questionText = trimmedLine.substring(3).trim();
-                } else if (trimmedLine.startsWith("=20")) {
-                    groupType = "G20";
-                    questionText = trimmedLine.substring(3).trim();
+    lines.forEach((line, index) => {
+        const trimmedLine = line.trim();
+        if (!trimmedLine) return;
+
+        if (trimmedLine.startsWith("=")) {
+            if (groupOpen) htmlOutput += "</div>\n";
+
+            let groupType = "G0";
+            let difficulty = "none";
+            let questionText = "";
+
+            const afterEqual = trimmedLine.substring(1).trim();
+
+            if (!afterEqual) {
+                // Case: just "="
+                questionText = "";
+            } else if (/[A-Z]/.test(afterEqual[0])) {
+                // Case: =D:H or similar (difficulty only)
+                const diffMatch = afterEqual.match(/^D:([EMH])\s*(.*)/);
+                if (diffMatch) {
+                    const diffLetter = diffMatch[1];
+                    if (diffLetter === "E") difficulty = "easy";
+                    if (diffLetter === "M") difficulty = "med";
+                    if (diffLetter === "H") difficulty = "hard";
+                    questionText = diffMatch[2];
+                } else {
+                    questionText = afterEqual;
                 }
-
-                htmlOutput += `<div data-group-type="${groupType}">\n`;
-                groupOpen = true;
-                htmlOutput += `<hr class="divider"><p class="question">${questionText}</p>\n`;
-            } else if (trimmedLine.startsWith("+")) {
-                htmlOutput += `<p class="highlight">${trimmedLine.substring(1).trim()}</p>\n`;
-            } else if (trimmedLine.startsWith("@")) {
-                htmlOutput += `<p class="questionChoice">${trimmedLine.substring(1).trim()}</p>\n`;
-            } else if (trimmedLine.startsWith("***")) {
-                htmlOutput += `<p class="chapterHeader">${trimmedLine.substring(3).trim()}</p>\n`;
-            } else if (trimmedLine.startsWith("-")) {
-                htmlOutput += `<p class="subTopicHeader">${trimmedLine.substring(1).trim()}</p>\n`;
-            } else if (trimmedLine.startsWith(">")) {
-                htmlOutput += `<p class="answer"><span class="arrow">→</span> ${trimmedLine.substring(1).trim()}</p>\n`;
             } else {
-                htmlOutput += `<p class="answer">${trimmedLine}</p>\n`;
+                // Case: optional number + optional =D:X
+                const numMatch = afterEqual.match(/^(\d+)(?:=D:([EMH]))?\s*(.*)/);
+                if (numMatch) {
+                    const num = numMatch[1];
+                    const diffLetter = numMatch[2];
+                    questionText = numMatch[3] || "";
+
+                    groupType = "G" + num;
+
+                    if (diffLetter) {
+                        if (diffLetter === "E") difficulty = "easy";
+                        if (diffLetter === "M") difficulty = "med";
+                        if (diffLetter === "H") difficulty = "hard";
+                    }
+                } else {
+                    questionText = afterEqual;
+                }
             }
 
-            if (index === lines.length - 1 && groupOpen) htmlOutput += "</div>\n";
-        });
+            // Save original prefix for later updates
+            const prefixMatch = trimmedLine.match(/^=(\d*)/);
+            const originalPrefix = prefixMatch[1] ? "=" + prefixMatch[1] : "=";
 
-        return htmlOutput;
-    }
+            htmlOutput += `<div data-group-type="${groupType}" data-difficulty="${difficulty}" data-original-prefix="${originalPrefix}">\n`;
+            groupOpen = true;
+            htmlOutput += `<hr class="divider"><p class="question">${questionText}</p>\n`;
+        }
+        else if (trimmedLine.startsWith("+")) {
+            htmlOutput += `<p class="highlight">${trimmedLine.substring(1).trim()}</p>\n`;
+        }
+        else if (trimmedLine.startsWith("#")) {
+            htmlOutput += `<p class="highlight2">${trimmedLine.substring(1).trim()}</p>\n`;
+        }
+        else if (trimmedLine.startsWith("@")) {
+            htmlOutput += `<p class="questionChoice">${trimmedLine.substring(1).trim()}</p>\n`;
+        }
+        else if (trimmedLine.startsWith("***")) {
+            htmlOutput += `<p class="chapterHeader">${trimmedLine.substring(3).trim()}</p>\n`;
+        }
+        else if (trimmedLine.startsWith("-")) {
+            htmlOutput += `<p class="subTopicHeader">${trimmedLine.substring(1).trim()}</p>\n`;
+        }
+        else if (trimmedLine.startsWith(">")) {
+            htmlOutput += `<p class="answer"><span class="arrow">→</span> ${trimmedLine.substring(1).trim()}</p>\n`;
+        }
+        else {
+            htmlOutput += `<p class="answer">${trimmedLine}</p>\n`;
+        }
+
+        if (index === lines.length - 1 && groupOpen) htmlOutput += "</div>\n";
+    });
+
+    return htmlOutput;
+}
+
+
+
+
+
+
+
+
 
     // Show divs based on start/end index
     function showPage(start, end) {
@@ -208,6 +216,18 @@ document.addEventListener("DOMContentLoaded", () => {
     // Submit button: show all and setup pagination
     submitBtn.addEventListener("click", () => {
         outputHtml.innerHTML = formatTextToHTML(inputText.value);
+        addDifficultyButtons();
+
+          // Highlight difficulty buttons based on data-difficulty
+    document.querySelectorAll("#outputHtml > div").forEach(div => {
+        const diff = div.dataset.difficulty;
+        if (diff === "easy") div.querySelector(".focus-btn-container button:nth-child(1)").style.backgroundColor = "#3b7ce1";
+        if (diff === "med") div.querySelector(".focus-btn-container button:nth-child(2)").style.backgroundColor = "#3b7ce1";
+        if (diff === "hard") div.querySelector(".focus-btn-container button:nth-child(3)").style.backgroundColor = "#3b7ce1";
+    });
+
+
+
         currentPage = 0;
         populateDropdowns();
         goToPage(0); // show all initially
@@ -255,176 +275,180 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Show All buttons
-    showAllBtnTop.addEventListener("click", () => goToPage(0));
-    showAllBtnBottom.addEventListener("click", () => goToPage(0));
+    /*showAllBtnTop.addEventListener("click", () => goToPage(0));
+    showAllBtnBottom.addEventListener("click", () => goToPage(0));*/
 
-    // Filters (G1/G2)
-    // Filters (G1 → G20)
-    filterG1Btn.addEventListener("click", () => {
-        document.querySelectorAll('[data-group-type]').forEach(div => {
-            div.style.display = div.dataset.groupType === "G1" ? "block" : "none";
-        });
-        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
-        mainTitle.textContent = "Group 1";
+        showAllBtnTop.addEventListener("click", () => {
+        currentDifficultyFilter = null;
+        document.querySelectorAll('#outputHtml > div').forEach(div => div.style.display = "block");
+        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "block");
+        mainTitle.textContent = "StudyTron";
     });
 
-    filterG2Btn.addEventListener("click", () => {
-        document.querySelectorAll('[data-group-type]').forEach(div => {
-            div.style.display = div.dataset.groupType === "G2" ? "block" : "none";
-        });
-        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
-        mainTitle.textContent = "Group 2";
-    });
-
-    filterG3.addEventListener("click", () => {
-        document.querySelectorAll('[data-group-type]').forEach(div => {
-            div.style.display = div.dataset.groupType === "G3" ? "block" : "none";
-        });
-        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
-        mainTitle.textContent = "Group 3";
-    });
-
-    filterG4.addEventListener("click", () => {
-        document.querySelectorAll('[data-group-type]').forEach(div => {
-            div.style.display = div.dataset.groupType === "G4" ? "block" : "none";
-        });
-        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
-        mainTitle.textContent = "Group 4";
-    });
-
-    filterG5.addEventListener("click", () => {
-        document.querySelectorAll('[data-group-type]').forEach(div => {
-            div.style.display = div.dataset.groupType === "G5" ? "block" : "none";
-        });
-        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
-        mainTitle.textContent = "Group 5";
-    });
-
-    filterG6.addEventListener("click", () => {
-        document.querySelectorAll('[data-group-type]').forEach(div => {
-            div.style.display = div.dataset.groupType === "G6" ? "block" : "none";
-        });
-        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
-        mainTitle.textContent = "Group 6";
-    });
-
-    filterG7.addEventListener("click", () => {
-        document.querySelectorAll('[data-group-type]').forEach(div => {
-            div.style.display = div.dataset.groupType === "G7" ? "block" : "none";
-        });
-        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
-        mainTitle.textContent = "Group 7";
-    });
-
-    filterG8.addEventListener("click", () => {
-        document.querySelectorAll('[data-group-type]').forEach(div => {
-            div.style.display = div.dataset.groupType === "G8" ? "block" : "none";
-        });
-        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
-        mainTitle.textContent = "Group 8";
-    });
-
-    filterG9.addEventListener("click", () => {
-        document.querySelectorAll('[data-group-type]').forEach(div => {
-            div.style.display = div.dataset.groupType === "G9" ? "block" : "none";
-        });
-        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
-        mainTitle.textContent = "Group 9";
-    });
-
-    filterG10.addEventListener("click", () => {
-        document.querySelectorAll('[data-group-type]').forEach(div => {
-            div.style.display = div.dataset.groupType === "G10" ? "block" : "none";
-        });
-        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
-        mainTitle.textContent = "Group 10";
-    });
-
-    filterG11.addEventListener("click", () => {
-        document.querySelectorAll('[data-group-type]').forEach(div => {
-            div.style.display = div.dataset.groupType === "G11" ? "block" : "none";
-        });
-        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
-        mainTitle.textContent = "Group 11";
-    });
-
-    filterG12.addEventListener("click", () => {
-        document.querySelectorAll('[data-group-type]').forEach(div => {
-            div.style.display = div.dataset.groupType === "G12" ? "block" : "none";
-        });
-        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
-        mainTitle.textContent = "Group 12";
-    });
-
-    filterG13.addEventListener("click", () => {
-        document.querySelectorAll('[data-group-type]').forEach(div => {
-            div.style.display = div.dataset.groupType === "G13" ? "block" : "none";
-        });
-        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
-        mainTitle.textContent = "Group 13";
-    });
-
-    filterG14.addEventListener("click", () => {
-        document.querySelectorAll('[data-group-type]').forEach(div => {
-            div.style.display = div.dataset.groupType === "G14" ? "block" : "none";
-        });
-        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
-        mainTitle.textContent = "Group 14";
-    });
-
-    filterG15.addEventListener("click", () => {
-        document.querySelectorAll('[data-group-type]').forEach(div => {
-            div.style.display = div.dataset.groupType === "G15" ? "block" : "none";
-        });
-        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
-        mainTitle.textContent = "Group 15";
-    });
-
-    filterG16.addEventListener("click", () => {
-        document.querySelectorAll('[data-group-type]').forEach(div => {
-            div.style.display = div.dataset.groupType === "G16" ? "block" : "none";
-        });
-        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
-        mainTitle.textContent = "Group 16";
-    });
-
-    filterG17.addEventListener("click", () => {
-        document.querySelectorAll('[data-group-type]').forEach(div => {
-            div.style.display = div.dataset.groupType === "G17" ? "block" : "none";
-        });
-        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
-        mainTitle.textContent = "Group 17";
-    });
-
-    filterG18.addEventListener("click", () => {
-        document.querySelectorAll('[data-group-type]').forEach(div => {
-            div.style.display = div.dataset.groupType === "G18" ? "block" : "none";
-        });
-        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
-        mainTitle.textContent = "Group 18";
-    });
-
-    filterG19.addEventListener("click", () => {
-        document.querySelectorAll('[data-group-type]').forEach(div => {
-            div.style.display = div.dataset.groupType === "G19" ? "block" : "none";
-        });
-        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
-        mainTitle.textContent = "Group 19";
-    });
-
-    filterG20.addEventListener("click", () => {
-        document.querySelectorAll('[data-group-type]').forEach(div => {
-            div.style.display = div.dataset.groupType === "G20" ? "block" : "none";
-        });
-        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "none");
-        mainTitle.textContent = "Group 20";
+    showAllBtnBottom.addEventListener("click", () => {
+        currentDifficultyFilter = null;
+        document.querySelectorAll('#outputHtml > div').forEach(div => div.style.display = "block");
+        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "block");
+        mainTitle.textContent = "StudyTron";
     });
 
 
+    // Reset filter when showing all
     filterAllBtn.addEventListener("click", () => {
+        currentDifficultyFilter = null;
         document.querySelectorAll('[data-group-type]').forEach(div => div.style.display = "block");
         document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "block");
         mainTitle.textContent = "StudyTron";
     });
+
+function applyGroupFilter(groupNum) {
+    document.querySelectorAll('[data-group-type]').forEach(div => {
+        div.style.display = div.dataset.groupType === "G" + groupNum ? "block" : "none";
+    });
+
+    document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => {
+        h.style.display = "none";
+    });
+
+    mainTitle.textContent = "Group " + groupNum;
+}
+
+for (let i = 1; i <= 20; i++) {
+    const btn = groupFilterButtons[i];
+    if (!btn) continue;
+
+    btn.addEventListener("click", () => {
+        applyGroupFilter(i);
+    });
+}
+
+
+    //Difficulty buttons
+    // Add difficulty buttons to each div
+function addDifficultyButtons() {
+    const allGroups = document.querySelectorAll("#outputHtml > div");
+
+    allGroups.forEach((div, divIndex) => {
+        if (div.querySelector(".focus-btn-container")) return;
+
+        //div.dataset.difficulty = "none";
+
+        div.dataset.difficulty = div.dataset.difficulty || "none";
+
+        const container = document.createElement("div");
+        container.classList.add("focus-btn-container");
+
+        const difficulties = ["EASY", "MED", "HARD"];
+
+        difficulties.forEach(level => {
+            const btn = document.createElement("button");
+            btn.textContent = level;
+            btn.classList.add("focus-btn");
+            btn.addEventListener("click", () => {
+                container.querySelectorAll("button.focus-btn").forEach(b => b.style.backgroundColor = "");
+                div.dataset.difficulty = level.toLowerCase();
+                btn.style.backgroundColor = "#3b7ce1";
+                updateTextareaDifficulty(divIndex, level[0].toUpperCase());
+                if (currentDifficultyFilter) updateDifficultyView();
+            });
+            container.appendChild(btn);
+        });
+
+        const removeBtn = document.createElement("button");
+        removeBtn.textContent = "REMOVE";
+        removeBtn.classList.add("remove-btn");
+        removeBtn.addEventListener("click", () => {
+            div.dataset.difficulty = "none";
+            container.querySelectorAll("button.focus-btn").forEach(b => b.style.backgroundColor = "");
+            updateTextareaDifficulty(divIndex, null); // remove difficulty but preserve original identifier
+            if (currentDifficultyFilter) {
+                div.style.display = "none";
+            } else {
+                div.style.display = "block";
+            }
+        });
+        container.appendChild(removeBtn);
+
+        div.appendChild(container);
+    });
+}
+
+function updateDifficultyView() {
+    const allGroups = document.querySelectorAll("#outputHtml > div");
+
+    if (currentDifficultyFilter) {
+        allGroups.forEach(div => {
+            div.style.display = div.dataset.difficulty === currentDifficultyFilter ? "block" : "none";
+        });
+    } else {
+        // No filter active → show all divs
+        allGroups.forEach(div => {
+            div.style.display = "block";
+        });
+    }
+}
+
+let currentDifficultyFilter = null;
+
+showEasyBtn.addEventListener("click", () => {
+    currentDifficultyFilter = "easy";
+    updateDifficultyView();
+    mainTitle.textContent = "Easy Questions";
+});
+
+showMedBtn.addEventListener("click", () => {
+    currentDifficultyFilter = "med";
+    updateDifficultyView();
+    mainTitle.textContent = "Medium Questions";
+});
+
+showHardBtn.addEventListener("click", () => {
+    currentDifficultyFilter = "hard";
+    updateDifficultyView();
+    mainTitle.textContent = "Hard Questions";
+});
+
+
+function updateTextareaDifficulty(divIndex, difficultyLetter) {
+    const lines = inputText.value.split("\n");
+    let current = -1;
+
+    for (let i = 0; i < lines.length; i++) {
+        if (!lines[i].startsWith("=")) continue;
+
+        current++;
+        if (current !== divIndex) continue;
+
+        const div = document.querySelectorAll("#outputHtml > div")[divIndex];
+        const originalPrefix = div.dataset.originalPrefix; // "=" or "=1" or "=20"
+        const content = lines[i]
+            .replace(/^=\d*=?D:[EMH]\s*/, "")
+            .replace(/^=\d*\s*/, "")
+            .replace(/^=\s*/, "")
+            .trim();
+
+        if (difficultyLetter) {
+            // Apply difficulty
+            if (originalPrefix === "=") {
+                lines[i] = `=D:${difficultyLetter} ${content}`;
+            } else {
+                lines[i] = `${originalPrefix}=D:${difficultyLetter} ${content}`;
+            }
+        } else {
+            // REMOVE — restore original prefix exactly
+            if (originalPrefix === "=") {
+                lines[i] = `=${content}`;
+            } else {
+                lines[i] = `${originalPrefix} ${content}`;
+            }
+        }
+        break;
+    }
+
+    inputText.value = lines.join("\n");
+}
+
+
+
 
 });

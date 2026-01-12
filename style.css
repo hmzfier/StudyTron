@@ -225,6 +225,16 @@ body {
     border: none;
 }
 
+#copyBtn {
+    color:#ffffff;
+    background-color:#0b76ff;
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+}
+
 /* Output container */
 #outputHtml {
     font-family: Arial, sans-serif;

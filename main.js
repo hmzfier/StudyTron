@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const submitBtn = document.getElementById("submitBtn");
     const outputHtml = document.getElementById("outputHtml");
     const mainTitle = document.getElementById("mainTitle");
+    const copyBtn = document.getElementById("copyBtn");
 
 
     const showEasyBtn = document.getElementById("showEasyBtn");
@@ -55,6 +56,13 @@ showHardBtn.addEventListener("click", () => {
     currentDifficultyFilter = "hard";
     updateDifficultyView();
     mainTitle.textContent = "Hard Questions";
+});
+
+copyBtn.addEventListener("click", () => {
+    const text = inputText.value;
+    navigator.clipboard.writeText(text).catch(err => {
+        console.error("Failed to copy text: ", err);
+    });
 });
 
 function formatTextToHTML(text) {

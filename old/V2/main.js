@@ -5,21 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const mainTitle = document.getElementById("mainTitle");
     const copyBtn = document.getElementById("copyBtn");
 
-    const menuButton = document.getElementById('menuButton');
-    const sideMenu = document.getElementById('sideMenu');
-
-    //toggle button to show answers
-    const button2 = document.getElementById('blepButton');
-    let isRed2 = false; // Keeps track of toggle state
-
-    const clearBtn = document.getElementById("clearBtn");
-
-    //back to top button
-    const backToTopBtn = document.getElementById('backToTop');
-
-    //scroll to middle and bottom
-    const toMiddle = document.getElementById('toMiddle');
-    const toBottom = document.getElementById('toBottom');
 
     const showEasyBtn = document.getElementById("showEasyBtn");
     const showMedBtn = document.getElementById("showMedBtn");
@@ -54,59 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentPage = 0;
     let totalPages = 0;
 
-clearBtn.addEventListener("click", () => {
-    clearTextArea();
-});
-
-menuButton.addEventListener('click', () => {
-  sideMenu.classList.toggle('active');
-});
-
-button2.addEventListener('click', () => {
-    const answers = document.querySelectorAll('.answer');
-    const answers2 = document.querySelectorAll('.answer2');
-    const answers3 = document.querySelectorAll('.highlight');
-    const answers4 = document.querySelectorAll('.arrow');
-    const answers5 = document.querySelectorAll('.highlight2');
-    
-    answers.forEach(el => {
-        el.style.color = isRed2 ? '#ffffff' : '#2d2d2d';
-    });
-
-    answers2.forEach(el => {
-        el.style.color = isRed2 ? '#ffffff' : '#2d2d2d';
-    });
-
-    answers3.forEach(el => {
-        el.style.color = isRed2 ? '#fd3ac3' : '#2d2d2d';
-    });
-    answers4.forEach(el => {
-        el.style.color = isRed2 ? '#77ff29' : '#2d2d2d';
-    });
-     answers5.forEach(el => {
-        el.style.color = isRed2 ? '#ff4039' : '#2d2d2d';
-    });
-
-    isRed2 = !isRed2; // Flip the toggle state
-});
-
-backToTopBtn.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-});
-
-toMiddle.addEventListener('click', () => {
-    const middle = document.body.scrollHeight / 2;
-    window.scrollTo({ top: middle, behavior: 'smooth' });
-});
-
-toBottom.addEventListener('click', () => {
-    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-});
-
-
 // Difficulty button listeners
 showEasyBtn.addEventListener("click", () => {
     currentDifficultyFilter = "easy";
@@ -132,15 +64,6 @@ copyBtn.addEventListener("click", () => {
         console.error("Failed to copy text: ", err);
     });
 });
-
-function clearTextArea() {
-    inputText.value = "";
-}
-
-function scrollToTopSmooth() {
-   document.documentElement.scrollTop = 0; // Firefox
-    document.body.scrollTop = 0;            // Chrome, Safari
-}
 
 function formatTextToHTML(text) {
     const lines = text.split("\n");
@@ -232,13 +155,7 @@ function formatTextToHTML(text) {
 }
 
 
-// Close the menu when any button inside the menu is clicked
-const menuButtons = sideMenu.querySelectorAll('button');
-menuButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    sideMenu.classList.remove('active');
-  });
-});
+
 
 
 
@@ -302,7 +219,6 @@ menuButtons.forEach(button => {
         }
         currentPage = pageNum;
         updateDropdowns();
-        scrollToTopSmooth();
     }
 
     // Submit button: show all and setup pagination
@@ -336,13 +252,11 @@ menuButtons.forEach(button => {
     if (inputText.style.display === "none") {
         inputText.style.display = "block";
         submitBtn.style.display = "inline-block"; // show submit button again
-        clearBtn.style.display = "inline-block;"
         showTextBtn.textContent = "Hide Text";
     } else {
         inputText.style.display = "none";
         submitBtn.style.display = "none";
         showTextBtn.textContent = "Show Text";
-        clearBtn.style.display = "none;"
     }
 });
 
@@ -375,7 +289,6 @@ menuButtons.forEach(button => {
         document.querySelectorAll('#outputHtml > div').forEach(div => div.style.display = "block");
         document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "block");
         mainTitle.textContent = "StudyTron";
-        scrollToTopSmooth();
     });
 
     showAllBtnBottom.addEventListener("click", () => {
@@ -383,7 +296,6 @@ menuButtons.forEach(button => {
         document.querySelectorAll('#outputHtml > div').forEach(div => div.style.display = "block");
         document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "block");
         mainTitle.textContent = "StudyTron";
-        scrollToTopSmooth();
     });
 
 

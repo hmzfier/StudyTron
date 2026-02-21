@@ -1,0 +1,11 @@
+= = question
+=15 = Group 15
+=1 = Group 1
+=15=D:M = Group 15, Difficulty of Medium
+=D:H = Difficulty of Hard
++ = highlight, purple color
+# = highlight 2, red color
+@ = question choice
+*** = chapter header, big words in orange
+- = subtopic header. Creates a DIV with a red rectangular background
+> = Creates a → arrow, used to show an indent

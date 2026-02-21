@@ -1,26 +1,3 @@
-//toggle button to show answers
-/*const button = document.getElementById('toggleAnswers');
-let isRed = false; // Keeps track of toggle state
-
-button.addEventListener('click', () => {
-    const answers = document.querySelectorAll('.answer');
-    const answers2 = document.querySelectorAll('.answer2');
-    const answers3 = document.querySelectorAll('.highlight');
-    
-    answers.forEach(el => {
-        el.style.color = isRed ? '#ffffff' : '#2d2d2d';
-    });
-
-     //isRed = !isRed;
-
-    answers2.forEach(el => {
-        el.style.color = isRed ? '#ffffff' : '#2d2d2d';
-    });
-
-    isRed = !isRed; // Flip the toggle state
-});*/
-
-
 //new toggle button
 //toggle button to show answers
 const button2 = document.getElementById('blepButton');

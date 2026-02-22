@@ -327,6 +327,8 @@ menuButtons.forEach(button => {
         // Hide textarea and submit button
         inputText.style.display = "none";
         submitBtn.style.display = "none";
+        copyBtn.style.display = "none";
+        clearBtn.style.display = "none";
 
         // Show the "Show Text" button
         showTextBtn.style.display = "inline-block";
@@ -336,13 +338,16 @@ menuButtons.forEach(button => {
     if (inputText.style.display === "none") {
         inputText.style.display = "block";
         submitBtn.style.display = "inline-block"; // show submit button again
-        clearBtn.style.display = "inline-block;"
+        clearBtn.style.display = "inline-block";
+        copyBtn.style.display = "inline-block";
         showTextBtn.textContent = "Hide Text";
     } else {
         inputText.style.display = "none";
         submitBtn.style.display = "none";
         showTextBtn.textContent = "Show Text";
-        clearBtn.style.display = "none;"
+        clearBtn.style.display = "none";
+        copyBtn.style.display = "none";
+        //clearBtn.style.display = "inline-block;"
     }
 });
 

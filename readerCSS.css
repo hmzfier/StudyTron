@@ -64,22 +64,18 @@ body {
 }
 
 /* Question and answer styles */
-.question {
+
+.sentenceContainer {
+    
+}
+.sentence {
     color: #53d35b;
     font-size: 18px;
     margin-top: 30px;
 }
 
-.questionChoice {
-    color: #ffa502;
-    font-size: 16px;
-    margin-top: 30px;
-}
-
 .answer {
-    color: rgb(255, 255, 255);
-    font-size: 18px;
-    margin-top: 30px;
+    color: #ffa502;
 }
 
 .answer2 {

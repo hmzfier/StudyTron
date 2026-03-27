@@ -4,6 +4,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const outputHtml = document.getElementById("outputHtml");
     const copyBtn = document.getElementById("copyBtn");
     const clearBtn = document.getElementById("clearBtn");
+    const showTextBtn = document.getElementById("blepButton"); // toggling button
+
+    let answersHidden = false; // track show/hide state
 
     // Format text on submit
     submitBtn.addEventListener("click", () => {
@@ -28,6 +31,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         outputHtml.innerHTML = formattedHTML;
+
+        // Reset show/hide state
+        answersHidden = false;
+        showTextBtn.textContent = "HIDE";
     });
 
     // Copy output
@@ -44,6 +51,27 @@ document.addEventListener("DOMContentLoaded", () => {
     clearBtn.addEventListener("click", () => {
         inputText.value = "";
         outputHtml.innerHTML = "";
+        answersHidden = false;
+        showTextBtn.textContent = "SHOW";
+    });
+
+    // Toggle show/hide answers
+    showTextBtn.addEventListener("click", () => {
+        const allAnswers = outputHtml.querySelectorAll("span.answer");
+        if (!answersHidden) {
+            // Hide all answers
+            allAnswers.forEach(span => {
+                span.style.visibility = "hidden";
+            });
+            showTextBtn.textContent = "SHOW";
+        } else {
+            // Show all answers
+            allAnswers.forEach(span => {
+                span.style.visibility = "visible";
+            });
+            showTextBtn.textContent = "HIDE";
+        }
+        answersHidden = !answersHidden;
     });
 
     // Menu toggle

@@ -4,30 +4,38 @@ document.addEventListener("DOMContentLoaded", () => {
     const outputHtml = document.getElementById("outputHtml");
     const copyBtn = document.getElementById("copyBtn");
     const clearBtn = document.getElementById("clearBtn");
-    const showTextBtn = document.getElementById("blepButton"); // toggling button
+    const showTextBtn = document.getElementById("blepButton");
 
-    let answersHidden = false; // track show/hide state
+    let answersHidden = false;
 
     // Format text on submit
     submitBtn.addEventListener("click", () => {
         const rawText = inputText.value;
 
-        // Split into sentences/lines (ignore empty lines)
+        // Split into lines and ignore empty lines
         const lines = rawText.split("\n").filter(line => line.trim() !== "");
 
         let formattedHTML = "";
 
         lines.forEach(line => {
-            // Replace --text-- with span
-            const formattedLine = line.replace(/--(.*?)--/g, (match, p1) => {
-                return `<span class="answer">${p1}</span>`;
-            });
+            line = line.trim();
 
-            formattedHTML += `
+            // Check for title line starting with ***
+            if (line.startsWith("***")) {
+                const titleText = line.replace(/^\*{3}/, "").trim();
+                formattedHTML += `<p class="chapterHeader" style="display: block;">${titleText}</p>\n`;
+            } else {
+                // Replace --text-- with <span class="answer">
+                const formattedLine = line.replace(/--(.*?)--/g, (match, p1) => {
+                    return `<span class="answer">${p1}</span>`;
+                });
+
+                formattedHTML += `
 <div class="sentenceContainer">
     <p class="sentence">${formattedLine}</p>
 </div>
 `;
+            }
         });
 
         outputHtml.innerHTML = formattedHTML;
@@ -59,16 +67,10 @@ document.addEventListener("DOMContentLoaded", () => {
     showTextBtn.addEventListener("click", () => {
         const allAnswers = outputHtml.querySelectorAll("span.answer");
         if (!answersHidden) {
-            // Hide all answers
-            allAnswers.forEach(span => {
-                span.style.visibility = "hidden";
-            });
+            allAnswers.forEach(span => span.style.visibility = "hidden");
             showTextBtn.textContent = "SHOW";
         } else {
-            // Show all answers
-            allAnswers.forEach(span => {
-                span.style.visibility = "visible";
-            });
+            allAnswers.forEach(span => span.style.visibility = "visible");
             showTextBtn.textContent = "HIDE";
         }
         answersHidden = !answersHidden;

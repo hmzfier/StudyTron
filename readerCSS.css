@@ -65,9 +65,7 @@ body {
 
 /* Question and answer styles */
 
-.sentenceContainer {
-    
-}
+
 .sentence {
     color: #53d35b;
     font-size: 18px;
@@ -162,6 +160,29 @@ body {
     box-shadow: 0 4px 6px rgba(0,0,0,0.3);
     transition: background-color 0.3s;
 }
+#blepButton:hover {
+    background-color: #cc8400;
+}
+
+#blepButton2 {
+    position: fixed;
+    bottom: 240px;  /* below blepButton and menuButton */
+    right: 30px;
+    background-color: #a4b0be;
+    color: black;
+    border: none;
+    border-radius: 10px;
+    padding: 30px 30px;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 1100;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    transition: background-color 0.3s;
+}
+
+#blepButton2:hover {
+    background-color: #cc8400;
+}
 
 /* Floating buttons */
 #menuButton {
@@ -178,6 +199,9 @@ body {
     z-index: 1100;
     box-shadow: 0 4px 6px rgba(0,0,0,0.3);
     transition: background-color 0.3s;
+}
+#menuButton:hover {
+    background-color: #cc8400;
 }
 
 #blepButton {
@@ -293,6 +317,18 @@ body {
 }
 
 /* Show/Hide Text Button */
+#showTextareaBtn {
+    display: none; /* hidden initially */
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    background-color: #0b76ff;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
 #showTextBtn {
     display: none; /* hidden initially */
     padding: 10px 20px;

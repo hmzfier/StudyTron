@@ -21,10 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const toMiddle = document.getElementById('toMiddle');
     const toBottom = document.getElementById('toBottom');
 
-    const showEasyBtn = document.getElementById("showEasyBtn");
-    const showMedBtn = document.getElementById("showMedBtn");
-    const showHardBtn = document.getElementById("showHardBtn");
-
     //show text area button
     const showTextBtn = document.getElementById("showTextBtn");
 
@@ -107,24 +103,7 @@ toBottom.addEventListener('click', () => {
 });
 
 
-// Difficulty button listeners
-showEasyBtn.addEventListener("click", () => {
-    currentDifficultyFilter = "easy";
-    updateDifficultyView();
-    mainTitle.textContent = "Easy Questions";
-});
 
-showMedBtn.addEventListener("click", () => {
-    currentDifficultyFilter = "med";
-    updateDifficultyView();
-    mainTitle.textContent = "Medium Questions";
-});
-
-showHardBtn.addEventListener("click", () => {
-    currentDifficultyFilter = "hard";
-    updateDifficultyView();
-    mainTitle.textContent = "Hard Questions";
-});
 
 copyBtn.addEventListener("click", () => {
     const text = inputText.value;
@@ -376,7 +355,6 @@ menuButtons.forEach(button => {
     // Show All buttons
 
         showAllBtnTop.addEventListener("click", () => {
-        currentDifficultyFilter = null;
         document.querySelectorAll('#outputHtml > div').forEach(div => div.style.display = "block");
         document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "block");
         mainTitle.textContent = "StudyTron";
@@ -384,7 +362,6 @@ menuButtons.forEach(button => {
     });
 
     showAllBtnBottom.addEventListener("click", () => {
-        currentDifficultyFilter = null;
         document.querySelectorAll('#outputHtml > div').forEach(div => div.style.display = "block");
         document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "block");
         mainTitle.textContent = "StudyTron";
@@ -394,7 +371,6 @@ menuButtons.forEach(button => {
 
     // Reset filter when showing all
     filterAllBtn.addEventListener("click", () => {
-        currentDifficultyFilter = null;
         document.querySelectorAll('[data-group-type]').forEach(div => div.style.display = "block");
         document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "block");
         mainTitle.textContent = "StudyTron";
@@ -448,7 +424,6 @@ function addDifficultyButtons() {
                 div.dataset.difficulty = level.toLowerCase();
                 btn.style.backgroundColor = "#3b7ce1";
                 updateTextareaDifficulty(divIndex, level[0].toUpperCase());
-                if (currentDifficultyFilter) updateDifficultyView();
             });
             container.appendChild(btn);
         });
@@ -460,11 +435,6 @@ function addDifficultyButtons() {
             div.dataset.difficulty = "none";
             container.querySelectorAll("button.focus-btn").forEach(b => b.style.backgroundColor = "");
             updateTextareaDifficulty(divIndex, null); // remove difficulty but preserve original identifier
-            if (currentDifficultyFilter) {
-                div.style.display = "none";
-            } else {
-                div.style.display = "block";
-            }
         });
         container.appendChild(removeBtn);
 
@@ -472,40 +442,6 @@ function addDifficultyButtons() {
     });
 }
 
-function updateDifficultyView() {
-    const allGroups = document.querySelectorAll("#outputHtml > div");
-
-    if (currentDifficultyFilter) {
-        allGroups.forEach(div => {
-            div.style.display = div.dataset.difficulty === currentDifficultyFilter ? "block" : "none";
-        });
-    } else {
-        // No filter active → show all divs
-        allGroups.forEach(div => {
-            div.style.display = "block";
-        });
-    }
-}
-
-let currentDifficultyFilter = null;
-
-showEasyBtn.addEventListener("click", () => {
-    currentDifficultyFilter = "easy";
-    updateDifficultyView();
-    mainTitle.textContent = "Easy Questions";
-});
-
-showMedBtn.addEventListener("click", () => {
-    currentDifficultyFilter = "med";
-    updateDifficultyView();
-    mainTitle.textContent = "Medium Questions";
-});
-
-showHardBtn.addEventListener("click", () => {
-    currentDifficultyFilter = "hard";
-    updateDifficultyView();
-    mainTitle.textContent = "Hard Questions";
-});
 
 
 function updateTextareaDifficulty(divIndex, difficultyLetter) {

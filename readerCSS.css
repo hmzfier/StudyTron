@@ -1,0 +1,355 @@
+/* General inputs and textarea */
+input, textarea {
+    width: 100%;
+    max-width: 800px;
+    padding: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+/* Disable zoom on mobile browsers */
+html {
+    touch-action: manipulation;
+}
+
+body {
+    background-color: #2d2d2d;
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+/* Titles */
+.title {
+    color: #e74c3c;
+    font-size: 25px;
+    margin-top:10px;
+}
+
+#mainTitle {
+    color: #f31a7f; /* main title color */
+}
+
+/* Divider */
+.divider {
+    border: none;
+    height: 2px;
+    background-color: #7f8c8d;
+    width: 100%;
+    margin: 20px auto;
+}
+
+/* Headers */
+.chapterHeader {
+    font-weight: bold;
+    font-size: 30px;
+    margin-top: 20px;
+    color: #ee611d;
+}
+
+.topicHeader {
+    color: #10ac84;
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.subTopicHeader {
+    color: #ffffff;
+    font-size: 18px;
+    margin-top: 30px;
+    background-color: #c0392b;
+    padding: 10px;
+}
+
+/* Question and answer styles */
+.question {
+    color: #53d35b;
+    font-size: 18px;
+    margin-top: 30px;
+}
+
+.questionChoice {
+    color: #ffa502;
+    font-size: 16px;
+    margin-top: 30px;
+}
+
+.answer {
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+    margin-top: 30px;
+}
+
+.answer2 {
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+    margin-top: 30px;
+    margin-left: 40px;
+}
+
+.highlight {
+    color: #fd3ac3;
+    font-size: 18px;
+    margin-top: 30px;
+}
+
+.highlight2 {
+    color: #ff4039;
+    font-size: 18px;
+    margin-top: 30px;
+}
+
+/* Bottom spacer */
+.bottom-spacer {
+    height: 200px;
+    width: 100%;
+}
+
+/* Menu */
+.menu {
+    position: fixed;
+    top: 0;
+    right: -40%;
+    width: 40%;
+    height: 100%;
+    background-color: #333;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    transition: right 0.4s ease;
+    z-index: 1000;
+    overflow-x: hidden;
+}
+
+.menu button {
+    background-color: #444;
+    color: white;
+    border: none;
+    padding: 15px;
+    margin: 10px;
+    width: 80%;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.menu button:hover {
+    background-color: #555;
+}
+
+/* Menu active state */
+.menu.active {
+    right: 0;
+}
+
+/* Floating buttons */
+#blepButton {
+    position: fixed;
+    bottom: 40px;
+    right: 30px;
+    background-color: #a4b0be;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 10px;
+    padding: 30px 30px;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 1100;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    transition: background-color 0.3s;
+}
+
+/* Floating buttons */
+#menuButton {
+    position: fixed;
+    bottom: 40px;
+    right: 30px;
+    background-color: #a4b0be;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 10px;
+    padding: 30px 40px;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 1100;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    transition: background-color 0.3s;
+}
+
+#blepButton {
+    bottom: 140px;
+}
+
+/* Focus buttons */
+.focus-btn-container {
+    margin-top: 10px;
+}
+
+.focus-btn {
+    margin-right: 5px;
+    padding: 10px 10px;
+    border: 1px solid #404040;
+    background-color: #404040;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.focus-btn:hover {
+    background-color: #c935d6;
+    color: #fff;
+}
+
+.focus-btn.selected {
+    background-color: #0b76ff;
+    color: #fff;
+}
+
+/* Remove button */
+.remove-btn {
+    margin-top: 5px;
+    padding: 10px 15px;
+    background-color: #585858;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+.remove-btn:hover {
+    background-color: #ff7875;
+}
+
+/* Submit button */
+#submitBtn {
+    color:#ffffff;
+    background-color:#0b76ff;
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+}
+
+#copyBtn {
+    color:#ffffff;
+    background-color:#0b76ff;
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+}
+
+#clearBtn {
+    color:#ffffff;
+    background-color:#0b76ff;
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+}
+
+/* Output container */
+#outputHtml {
+    font-family: Arial, sans-serif;
+    white-space: normal;
+    /*display: inline-block;*/
+}
+
+.arrow {
+    color: #77ff29;  
+}
+
+/* Pagination container */
+.pagination-container {
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Buttons: Previous, Next, Show All (flat orange) */
+.pagination-container button {
+    padding: 8px 12px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #0eae00;
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.pagination-container button:hover {
+    background-color: #064d00;
+}
+
+/* Show/Hide Text Button */
+#showTextBtn {
+    display: none; /* hidden initially */
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    background-color: #0b76ff;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#showTextBtn:hover {
+    background-color: #0957b0;
+    transform: scale(1.05);
+}
+
+#showTextBtn:active {
+    transform: scale(0.98);
+}
+
+/* Pagination dropdown: default browser style with white background */
+.page-select {
+    font-size: 16px;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+
+
+#mainTitle {
+color: #f31a7f;  
+}
+
+.menuText {
+    color: #44df64;
+}
+
+.focus-btn, .remove-btn {
+    background-color: #444;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 12px;
+    padding: 8px 15px;
+}
+
+.focus-btn:hover, .remove-btn:hover {
+    background-color: #666;
+}

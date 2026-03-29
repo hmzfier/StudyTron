@@ -122,17 +122,17 @@ document.addEventListener("DOMContentLoaded", () => {
     function renderGroups() {
         if (currentGroupIndex === -1) {
             outputHtml.innerHTML = groups.map(g => `
-<div class="groupContainer">
-    <p class="chapterHeader">${g.name}</p>
-    ${g.html}
-</div>`).join("");
-        } else {
-            const g = groups[currentGroupIndex];
-            outputHtml.innerHTML = `
-<div class="groupContainer">
-    <p class="chapterHeader">${g.name}</p>
-    ${g.html}
-</div>`;
+                <div class="groupContainer">
+                    <p class="chapterHeader">${g.name}</p>
+                    ${g.html}
+                </div>`).join("");
+                        } else {
+                            const g = groups[currentGroupIndex];
+                            outputHtml.innerHTML = `
+                <div class="groupContainer">
+                    <p class="chapterHeader">${g.name}</p>
+                    ${g.html}
+                </div>`;
         }
 
         attachSentenceButtons();
@@ -154,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const container = e.target.closest(".sentenceContainer");
                 const index = parseInt(container.dataset.sentenceOrder) - 1;
                 const line = originalLines[index] || "";
-                hardText.value += (hardText.value ? "\n" : "") + line + "\n\n";
+                hardText.value += (hardText.value ? "\n" : "") + line + "\n";
             });
         });
 
@@ -163,7 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const container = e.target.closest(".sentenceContainer");
                 const index = parseInt(container.dataset.sentenceOrder) - 1;
                 const line = originalLines[index] || "";
-                focusText.value += (focusText.value ? "\n" : "") + line + "\n\n";
+                focusText.value += (focusText.value ? "\n" : "") + line + "\n";
             });
         });
     }

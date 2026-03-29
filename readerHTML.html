@@ -12,12 +12,28 @@
     <h1 id ="mainTitle">StudyTron READER</h1>
     
     <div id="inputContainer">
-    <textarea id="inputText" placeholder="Paste your text here..." rows="15" cols="60"></textarea>
-    <br>
-    <button id="submitBtn">Submit</button>
-    <button id="copyBtn">Copy</button>
-    <button id="clearBtn">Clear Text</button>
-    <button id="showTextBtn" style="display: none;">Show Text</button>
+      <textarea id="inputText" placeholder="Paste your text here..." rows="15" cols="60"></textarea>
+      <br>
+      <button id="submitBtn">Submit</button>
+      <button id="copyBtn">Copy</button>
+      <button id="clearBtn">Clear Text</button>
+      <button id="showTextBtn" style="display: none;">Show Text</button>
+
+      <!-- New Hard Container -->
+      <div class="hardContainer" style="margin-top:20px;">
+          <textarea id="hardText" placeholder="Hard text here..." rows="10" cols="60"></textarea>
+          <br>
+          <button id="copyHardBtn">Copy</button>
+          <button id="clearHardBtn">Clear Text</button>
+      </div>
+
+      <!-- New Focus Container -->
+      <div class="focusContainer" style="margin-top:20px;">
+          <textarea id="focusText" placeholder="Focus text here..." rows="10" cols="60"></textarea>
+          <br>
+          <button id="copyFocusBtn">Copy</button>
+          <button id="clearFocusBtn">Clear Text</button>
+      </div>
     </div>
 
     <!-- New toggle button -->
@@ -56,6 +72,7 @@
   <button id="menuButton">☰</button>
   <button id="blepButton">HIDE 1</button>
   <button id="blepButton2">HIDE 2</button>
+  <button id="toggleHFBtn">SHOW HF</button>
   <!--<button id="blepButton">SHOW</button>
   <button id="blepButton2">HIDE STATEMENTS</button>-->
 

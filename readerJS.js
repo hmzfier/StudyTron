@@ -9,6 +9,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const showTextareaBtn = document.getElementById("showTextareaBtn");
     const inputContainer = document.getElementById("inputContainer");
 
+    const toggleHFBtn = document.getElementById("toggleHFBtn");
+
+    const hardText = document.getElementById("hardText");
+    const copyHardBtn = document.getElementById("copyHardBtn");
+    const clearHardBtn = document.getElementById("clearHardBtn");
+
+    const focusText = document.getElementById("focusText");
+    const copyFocusBtn = document.getElementById("copyFocusBtn");
+    const clearFocusBtn = document.getElementById("clearFocusBtn");
+
     const prevPageTop = document.getElementById("prevPage");
     const nextPageTop = document.getElementById("nextPage");
     const showAllPageTop = document.getElementById("showAllPage");
@@ -21,103 +31,163 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let answersHidden = false;
     let statementsHidden = false;
+    let hfVisible = false;
     let groups = [];
-    let currentGroupIndex = -1; // -1 = show all
+    let currentGroupIndex = -1;
+    let originalLines = [];
 
-    // Format text on submit
+    // SUBMIT
     submitBtn.addEventListener("click", () => {
         const rawText = inputText.value;
         const lines = rawText.split("\n").filter(line => line.trim() !== "");
+        originalLines = lines;
 
         let currentGroupName = "Ungrouped";
         let currentGroupHTML = "";
         groups = [];
 
-        lines.forEach(line => {
+        lines.forEach((line, index) => {
             line = line.trim();
+
             if (line.startsWith("***")) {
-                // Save previous group
                 if (currentGroupHTML) {
-                    groups.push({
-                        name: currentGroupName,
-                        html: currentGroupHTML
-                    });
+                    groups.push({ name: currentGroupName, html: currentGroupHTML });
                     currentGroupHTML = "";
                 }
                 currentGroupName = line.replace(/^\*{3}/, "").trim();
             } else {
-                // Split line into parts by --answer-- and wrap them accordingly
                 let formattedLine = "";
-                const parts = line.split(/(--.*?--)/g); // split on --answer-- including the dashes
+                const parts = line.split(/(--.*?--)/g);
 
-                parts.forEach(part => {
+                parts.forEach((part, i) => {
+                    const nextPart = parts[i + 1] ? parts[i + 1].trim() : "";
+
                     if (part.startsWith("--") && part.endsWith("--")) {
                         const answerText = part.slice(2, -2).trim();
-                        formattedLine += `<span class="answer" style="position: relative; display: inline-block; line-height:1.4;">
+
+                        formattedLine += `<span class="answer" style="position: relative; display: inline-block;">
                             ${answerText}
-                            <span class="answerCover" style="position: absolute; inset:0; background-color: #484848; border-radius:4px; display:none;"></span>
-                        </span> `;
+                            <span class="answerCover" style="position:absolute; inset:0; background:#484848; display:none;"></span>
+                        </span>`;
+
+                        // ONLY add space if next part is NOT punctuation
+                        if (!/^[.,!?]/.test(nextPart)) {
+                            formattedLine += " ";
+                        }
+
                     } else if (part.trim() !== "") {
-                        formattedLine += `<span class="statement">${part.trim()} </span>`;
+                        const cleanText = part.trim();
+
+                        // If this part starts with punctuation, remove previous space
+                        if (/^[.,!?]/.test(cleanText)) {
+                            formattedLine = formattedLine.trimEnd();
+                            formattedLine += `<span class="statement">${cleanText}</span> `;
+                        } else {
+                            formattedLine += `<span class="statement">${cleanText} </span>`;
+                        }
                     }
                 });
 
-                currentGroupHTML += `<div class="sentenceContainer"><p class="sentence">${formattedLine}</p></div>`;
+                currentGroupHTML += `
+<div class="sentenceContainer" data-sentence-order="${index + 1}">
+    <p class="sentence">
+        ${formattedLine}
+        <button class="hardBtn" style="display:none;">Hard</button>
+        <button class="focusBtn" style="display:none;">Focus</button>
+    </p>
+</div>`;
             }
         });
 
-        // Push last group
         if (currentGroupHTML) {
-            groups.push({
-                name: currentGroupName,
-                html: currentGroupHTML
-            });
+            groups.push({ name: currentGroupName, html: currentGroupHTML });
         }
 
         renderGroups();
         setupPagination();
+
         answersHidden = false;
         statementsHidden = false;
+        hfVisible = false;
+
         showTextBtn.textContent = "HIDE 1";
         blepButton2.textContent = "HIDE 2";
+        toggleHFBtn.textContent = "SHOW HF";
 
-        // Hide textarea + buttons, show "Show Textarea"
         inputContainer.style.display = "none";
         showTextareaBtn.style.display = "inline-block";
     });
 
-    // Render groups based on currentGroupIndex
+    // RENDER
     function renderGroups() {
         if (currentGroupIndex === -1) {
-            // Show all groups
             outputHtml.innerHTML = groups.map(g => `
-<div class="groupContainer" data-group="${g.name}">
-    <p class="chapterHeader" style="display: block;">${g.name}</p>
+<div class="groupContainer">
+    <p class="chapterHeader">${g.name}</p>
     ${g.html}
-</div>
-`).join("");
+</div>`).join("");
         } else {
-            // Show only current group with its title
             const g = groups[currentGroupIndex];
             outputHtml.innerHTML = `
-<div class="groupContainer" data-group="${g.name}">
-    <p class="chapterHeader" style="display: block;">${g.name}</p>
+<div class="groupContainer">
+    <p class="chapterHeader">${g.name}</p>
     ${g.html}
 </div>`;
         }
 
-        // Apply show/hide state to all answer covers
-        const allCovers = outputHtml.querySelectorAll("span.answerCover");
-        allCovers.forEach(cover => cover.style.display = answersHidden ? "block" : "none");
+        attachSentenceButtons();
+        toggleHFButtons(hfVisible);
 
-        // Apply show/hide state to statements
+        const covers = outputHtml.querySelectorAll(".answerCover");
+        covers.forEach(c => c.style.display = answersHidden ? "block" : "none");
+
         toggleStatementCovers(statementsHidden);
     }
 
-    // Setup pagination dropdowns and buttons
+    // Attach Hard / Focus button logic
+    function attachSentenceButtons() {
+        const hardBtns = outputHtml.querySelectorAll(".hardBtn");
+        const focusBtns = outputHtml.querySelectorAll(".focusBtn");
+
+        hardBtns.forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                const container = e.target.closest(".sentenceContainer");
+                const index = parseInt(container.dataset.sentenceOrder) - 1;
+                const line = originalLines[index] || "";
+                hardText.value += (hardText.value ? "\n" : "") + line + "\n\n";
+            });
+        });
+
+        focusBtns.forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                const container = e.target.closest(".sentenceContainer");
+                const index = parseInt(container.dataset.sentenceOrder) - 1;
+                const line = originalLines[index] || "";
+                focusText.value += (focusText.value ? "\n" : "") + line + "\n\n";
+            });
+        });
+    }
+
+    // Show/Hide Hard & Focus buttons
+    function toggleHFButtons(show) {
+        const hardBtns = outputHtml.querySelectorAll(".hardBtn");
+        const focusBtns = outputHtml.querySelectorAll(".focusBtn");
+
+        hardBtns.forEach(btn => btn.style.display = show ? "inline-block" : "none");
+        focusBtns.forEach(btn => btn.style.display = show ? "inline-block" : "none");
+    }
+
+    // Toggle HF button
+    toggleHFBtn.addEventListener("click", () => {
+        hfVisible = !hfVisible;
+        toggleHFButtons(hfVisible);
+        toggleHFBtn.textContent = hfVisible ? "HIDE HF" : "SHOW HF";
+    });
+
     function setupPagination() {
         [pageDropdownTop, pageDropdownBottom].forEach(drop => {
             drop.innerHTML = "";
+
             const optionAll = document.createElement("option");
             optionAll.value = -1;
             optionAll.textContent = "ALL";
@@ -129,75 +199,84 @@ document.addEventListener("DOMContentLoaded", () => {
                 opt.textContent = g.name;
                 drop.appendChild(opt);
             });
+
             drop.value = -1;
         });
+
         currentGroupIndex = -1;
     }
 
-    // Pagination controls
     function goToGroup(index) {
         if (index < -1) index = groups.length - 1;
         if (index > groups.length - 1) index = -1;
+
         currentGroupIndex = index;
         renderGroups();
+
         pageDropdownTop.value = index;
         pageDropdownBottom.value = index;
     }
 
-    [prevPageTop, prevPageBottom].forEach(btn => {
-        btn.addEventListener("click", () => goToGroup(currentGroupIndex - 1));
-    });
+    [prevPageTop, prevPageBottom].forEach(btn =>
+        btn.addEventListener("click", () => goToGroup(currentGroupIndex - 1))
+    );
 
-    [nextPageTop, nextPageBottom].forEach(btn => {
-        btn.addEventListener("click", () => goToGroup(currentGroupIndex + 1));
-    });
+    [nextPageTop, nextPageBottom].forEach(btn =>
+        btn.addEventListener("click", () => goToGroup(currentGroupIndex + 1))
+    );
 
-    [showAllPageTop, showAllPageBottom].forEach(btn => {
-        btn.addEventListener("click", () => goToGroup(-1));
-    });
+    [showAllPageTop, showAllPageBottom].forEach(btn =>
+        btn.addEventListener("click", () => goToGroup(-1))
+    );
 
-    [pageDropdownTop, pageDropdownBottom].forEach(drop => {
-        drop.addEventListener("change", e => goToGroup(parseInt(e.target.value)));
-    });
+    [pageDropdownTop, pageDropdownBottom].forEach(drop =>
+        drop.addEventListener("change", e => goToGroup(parseInt(e.target.value)))
+    );
 
-    // Copy output
+    // Copy / Clear
     copyBtn.addEventListener("click", () => {
-        const temp = document.createElement("textarea");
-        temp.value = outputHtml.innerHTML;
-        document.body.appendChild(temp);
-        temp.select();
-        document.execCommand("copy");
-        document.body.removeChild(temp);
+        navigator.clipboard.writeText(outputHtml.innerHTML);
     });
 
-    // Clear input + output
     clearBtn.addEventListener("click", () => {
         inputText.value = "";
         outputHtml.innerHTML = "";
-        answersHidden = false;
-        statementsHidden = false;
-        currentGroupIndex = -1;
-        showTextBtn.textContent = "SHOW";
-        blepButton2.textContent = "HIDE 2";
         setupPagination();
     });
 
-    // Toggle show/hide answers (orange cover)
+    copyHardBtn.addEventListener("click", () => {
+        navigator.clipboard.writeText(hardText.value);
+    });
+
+    clearHardBtn.addEventListener("click", () => {
+        hardText.value = "";
+    });
+
+    copyFocusBtn.addEventListener("click", () => {
+        navigator.clipboard.writeText(focusText.value);
+    });
+
+    clearFocusBtn.addEventListener("click", () => {
+        focusText.value = "";
+    });
+
+    // Toggle answers
     showTextBtn.addEventListener("click", () => {
-        const allCovers = outputHtml.querySelectorAll("span.answerCover");
+        const covers = outputHtml.querySelectorAll(".answerCover");
+
         if (!answersHidden) {
-            allCovers.forEach(cover => cover.style.display = "block");
+            covers.forEach(c => c.style.display = "block");
             showTextBtn.textContent = "SHOW 1";
         } else {
-            allCovers.forEach(cover => cover.style.display = "none");
+            covers.forEach(c => c.style.display = "none");
             showTextBtn.textContent = "HIDE 1";
         }
+
         answersHidden = !answersHidden;
     });
 
-    // Toggle show/hide statements
     function toggleStatementCovers(hide) {
-        const allStatements = outputHtml.querySelectorAll("span.statement");
+        const allStatements = outputHtml.querySelectorAll(".statement");
         allStatements.forEach(span => {
             span.style.backgroundColor = hide ? "#234178" : "transparent";
             span.style.color = hide ? "transparent" : "inherit";
@@ -210,13 +289,13 @@ document.addEventListener("DOMContentLoaded", () => {
         blepButton2.textContent = statementsHidden ? "SHOW 2" : "HIDE 2";
     });
 
-    // Toggle textarea visibility
+    // Show textarea again
     showTextareaBtn.addEventListener("click", () => {
         inputContainer.style.display = "block";
         showTextareaBtn.style.display = "none";
     });
 
-    // Menu toggle
+    // Menu
     const menuButton = document.getElementById("menuButton");
     const sideMenu = document.getElementById("sideMenu");
 
@@ -224,7 +303,6 @@ document.addEventListener("DOMContentLoaded", () => {
         sideMenu.classList.toggle("active");
     });
 
-    // Navigation buttons
     document.getElementById("backToTop").addEventListener("click", () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
     });

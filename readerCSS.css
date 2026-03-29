@@ -64,8 +64,6 @@ body {
 }
 
 /* Question and answer styles */
-
-
 .sentence {
     color: #53d35b;
     font-size: 18px;
@@ -147,7 +145,7 @@ body {
 /* Floating buttons */
 #blepButton {
     position: fixed;
-    bottom: 40px;
+    bottom: 140px;
     right: 30px;
     background-color: #a4b0be;
     color: rgb(0, 0, 0);
@@ -184,7 +182,6 @@ body {
     background-color: #cc8400;
 }
 
-/* Floating buttons */
 #menuButton {
     position: fixed;
     bottom: 40px;
@@ -202,10 +199,6 @@ body {
 }
 #menuButton:hover {
     background-color: #cc8400;
-}
-
-#blepButton {
-    bottom: 140px;
 }
 
 /* Focus buttons */
@@ -251,8 +244,11 @@ body {
     background-color: #ff7875;
 }
 
-/* Submit button */
-#submitBtn {
+/* Submit / Copy / Clear buttons */
+#submitBtn, #copyBtn, #clearBtn,
+#copyHardBtn, #clearHardBtn,
+#copyFocusBtn, #clearFocusBtn,
+#showTextBtn, #showTextareaBtn {
     color:#ffffff;
     background-color:#0b76ff;
     margin-top: 10px;
@@ -262,31 +258,25 @@ body {
     border: none;
 }
 
-#copyBtn {
-    color:#ffffff;
-    background-color:#0b76ff;
-    margin-top: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
+#showTextBtn, #showTextareaBtn {
+    display: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-#clearBtn {
-    color:#ffffff;
-    background-color:#0b76ff;
-    margin-top: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
+#showTextBtn:hover, #showTextareaBtn:hover {
+    background-color: #0957b0;
+    transform: scale(1.05);
+}
+
+#showTextBtn:active, #showTextareaBtn:active {
+    transform: scale(0.98);
 }
 
 /* Output container */
 #outputHtml {
     font-family: Arial, sans-serif;
     white-space: normal;
-    /*display: inline-block;*/
 }
 
 .arrow {
@@ -301,7 +291,7 @@ body {
     gap: 10px;
 }
 
-/* Buttons: Previous, Next, Show All (flat orange) */
+/* Pagination buttons */
 .pagination-container button {
     padding: 8px 12px;
     font-size: 16px;
@@ -316,41 +306,7 @@ body {
     background-color: #064d00;
 }
 
-/* Show/Hide Text Button */
-#showTextareaBtn {
-    display: none; /* hidden initially */
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    background-color: #0b76ff;
-    color: white;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-#showTextBtn {
-    display: none; /* hidden initially */
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    background-color: #0b76ff;
-    color: white;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-#showTextBtn:hover {
-    background-color: #0957b0;
-    transform: scale(1.05);
-}
-
-#showTextBtn:active {
-    transform: scale(0.98);
-}
-
-/* Pagination dropdown: default browser style with white background */
+/* Pagination dropdown */
 .page-select {
     font-size: 16px;
     cursor: pointer;
@@ -361,21 +317,20 @@ body {
     border: 1px solid #ccc;
 }
 
-
-
+/* Main title */
 #mainTitle {
-color: #f31a7f;  
+    color: #f31a7f;  
 }
 
 .menuText {
     color: #44df64;
 }
 
+/* Buttons shared hover style */
 .focus-btn, .remove-btn {
     background-color: #444;
     color: white;
     border: none;
-    padding: 4px 8px;
     cursor: pointer;
     border-radius: 4px;
     font-size: 12px;
@@ -384,4 +339,38 @@ color: #f31a7f;
 
 .focus-btn:hover, .remove-btn:hover {
     background-color: #666;
+}
+
+.hardBtn {
+background-color: #444;
+color: white;
+padding: 10px 20px;
+ border: none;
+}
+
+.focusBtn {
+background-color: #444;
+color: white;
+padding: 10px 20px;
+ border: none;
+}
+
+#toggleHFBtn {
+    position: fixed;
+    bottom: 340px; /* above blepButton2 */
+    right: 30px;
+    background-color: #a4b0be;
+    color: black;
+    border: none;
+    border-radius: 10px;
+    padding: 30px 30px;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 1100;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    transition: background-color 0.3s;
+}
+
+#toggleHFBtn:hover {
+    background-color: #cc8400;
 }

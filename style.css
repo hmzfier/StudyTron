@@ -229,7 +229,12 @@ body {
 /* Submit, copy, clear buttons */
 #submitBtn,
 #copyBtn,
-#clearBtn {
+#clearBtn, 
+#hardCopyBtn,
+#hardClearBtn,
+#focusCopyBtn,
+#focusClearBtn
+{
     color:#ffffff;
     background-color:#0b76ff;
     margin-top: 10px;
@@ -357,7 +362,7 @@ body {
 }
 
 /* Buttons under new textareas */
-#hardCopyBtn,
+/*#hardCopyBtn,
 #hardClearBtn,
 #focusCopyBtn,
 #focusClearBtn {
@@ -379,7 +384,7 @@ body {
 #focusCopyBtn:hover,
 #focusClearBtn:hover {
     background-color: #2a5bb0;
-}
+}*/
 
 .otherPages {
     background-color:#444;

@@ -393,3 +393,19 @@ padding: 10px 20px;
 .otherPages:hover {
     background-color: #555;
 }
+
+#hardText,
+#focusText {
+    width: 100%;
+    min-height: 150px;
+    padding: 10px;
+    font-size: 16px;
+    line-height: 1.5;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+    box-sizing: border-box;
+    background-color: #1e1e1e; /* dark theme */
+    color: #ffffff;
+    margin-bottom: 10px;
+}

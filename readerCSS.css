@@ -344,14 +344,14 @@ body {
 .hardBtn {
 background-color: #444;
 color: white;
-padding: 5px 20px;
+padding: 8px 25px;
  border: none;
 }
 
 .focusBtn {
 background-color: #444;
 color: white;
-padding: 5px 20px;
+padding: 8px 25px;
  border: none;
  margin-left:5px;
 }

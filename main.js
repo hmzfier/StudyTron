@@ -1,553 +1,239 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const inputText = document.getElementById("inputText");
-    const submitBtn = document.getElementById("submitBtn");
-    const outputHtml = document.getElementById("outputHtml");
-    const mainTitle = document.getElementById("mainTitle");
-    const copyBtn = document.getElementById("copyBtn");
+  const inputText = document.getElementById("inputText");
+  const hardText = document.getElementById("hardText");
+  const focusText = document.getElementById("focusText");
+  const submitBtn = document.getElementById("submitBtn");
+  const outputHtml = document.getElementById("outputHtml");
+  const mainTitle = document.getElementById("mainTitle");
+  const copyBtn = document.getElementById("copyBtn");
+  const clearBtn = document.getElementById("clearBtn");
+  const showTextBtn = document.getElementById("showTextBtn");
 
-    const menuButton = document.getElementById('menuButton');
-    const sideMenu = document.getElementById('sideMenu');
+  const hardCopyBtn = document.getElementById("hardCopyBtn");
+  const hardClearBtn = document.getElementById("hardClearBtn");
+  const focusCopyBtn = document.getElementById("focusCopyBtn");
+  const focusClearBtn = document.getElementById("focusClearBtn");
 
-    //toggle button to show answers
-    const button2 = document.getElementById('blepButton');
-    let isRed2 = false; // Keeps track of toggle state
+  const menuButton = document.getElementById('menuButton');
+  const sideMenu = document.getElementById('sideMenu');
+  const blepButton = document.getElementById('blepButton');
+  let isRed2 = false;
 
-    const clearBtn = document.getElementById("clearBtn");
+  const backToTopBtn = document.getElementById('backToTop');
+  const toMiddle = document.getElementById('toMiddle');
+  const toBottom = document.getElementById('toBottom');
 
-    //back to top button
-    const backToTopBtn = document.getElementById('backToTop');
+  const prevBtnTop = document.getElementById("prevPage");
+  const nextBtnTop = document.getElementById("nextPage");
+  const pageDropdownTop = document.getElementById("pageDropdownTop");
+  const showAllBtnTop = document.getElementById("showAllPage");
 
-    //scroll to middle and bottom
-    const toMiddle = document.getElementById('toMiddle');
-    const toBottom = document.getElementById('toBottom');
+  const prevBtnBottom = document.getElementById("prevPageBottom");
+  const nextBtnBottom = document.getElementById("nextPageBottom");
+  const pageDropdownBottom = document.getElementById("pageDropdownBottom");
+  const showAllBtnBottom = document.getElementById("showAllPageBottom");
 
-    const showEasyBtn = document.getElementById("showEasyBtn");
-    const showMedBtn = document.getElementById("showMedBtn");
-    const showHardBtn = document.getElementById("showHardBtn");
+  const DIVS_PER_PAGE = 8;
+  let currentPage = 0;
+  let totalPages = 0;
+  let currentDifficultyFilter = null;
 
-    //show text area button
-    const showTextBtn = document.getElementById("showTextBtn");
+  // ========================== BUTTON LISTENERS ==========================
+  clearBtn.addEventListener("click", () => { inputText.value = ""; });
 
-    // Filters
-    const filterAllBtn = document.getElementById("filterAll");
+  menuButton.addEventListener('click', () => { sideMenu.classList.toggle('active'); });
 
-    const groupFilterButtons = {};
-
-    for (let i = 1; i <= 20; i++) {
-        groupFilterButtons[i] = document.getElementById("filterG" + i);
-    }
-
-
-    // Pagination elements (top)
-    const prevBtnTop = document.getElementById("prevPage");
-    const nextBtnTop = document.getElementById("nextPage");
-    const pageDropdownTop = document.getElementById("pageDropdownTop");
-    const showAllBtnTop = document.getElementById("showAllPage");
-
-    // Pagination elements (bottom)
-    const prevBtnBottom = document.getElementById("prevPageBottom");
-    const nextBtnBottom = document.getElementById("nextPageBottom");
-    const pageDropdownBottom = document.getElementById("pageDropdownBottom");
-    const showAllBtnBottom = document.getElementById("showAllPageBottom");
-
-    const DIVS_PER_PAGE = 8;
-    let currentPage = 0;
-    let totalPages = 0;
-
-clearBtn.addEventListener("click", () => {
-    clearTextArea();
-});
-
-menuButton.addEventListener('click', () => {
-  sideMenu.classList.toggle('active');
-});
-
-button2.addEventListener('click', () => {
-    const answers = document.querySelectorAll('.answer');
-    const answers2 = document.querySelectorAll('.answer2');
-    const answers3 = document.querySelectorAll('.highlight');
-    const answers4 = document.querySelectorAll('.arrow');
-    const answers5 = document.querySelectorAll('.highlight2');
-    
-    answers.forEach(el => {
-        el.style.color = isRed2 ? '#ffffff' : '#2d2d2d';
+  blepButton.addEventListener('click', () => {
+    document.querySelectorAll('.answer, .answer2, .highlight, .highlight2, .arrow').forEach(el => {
+      if (el.classList.contains("answer")) el.style.color = isRed2 ? '#ffffff' : '#2d2d2d';
+      else if (el.classList.contains("answer2")) el.style.color = isRed2 ? '#ffffff' : '#2d2d2d';
+      else if (el.classList.contains("highlight")) el.style.color = isRed2 ? '#fd3ac3' : '#2d2d2d';
+      else if (el.classList.contains("highlight2")) el.style.color = isRed2 ? '#ff4039' : '#2d2d2d';
+      else if (el.classList.contains("arrow")) el.style.color = isRed2 ? '#77ff29' : '#2d2d2d';
     });
+    isRed2 = !isRed2;
+  });
 
-    answers2.forEach(el => {
-        el.style.color = isRed2 ? '#ffffff' : '#2d2d2d';
-    });
-
-    answers3.forEach(el => {
-        el.style.color = isRed2 ? '#fd3ac3' : '#2d2d2d';
-    });
-    answers4.forEach(el => {
-        el.style.color = isRed2 ? '#77ff29' : '#2d2d2d';
-    });
-     answers5.forEach(el => {
-        el.style.color = isRed2 ? '#ff4039' : '#2d2d2d';
-    });
-
-    isRed2 = !isRed2; // Flip the toggle state
-});
-
-backToTopBtn.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-});
-
-toMiddle.addEventListener('click', () => {
-    const middle = document.body.scrollHeight / 2;
-    window.scrollTo({ top: middle, behavior: 'smooth' });
-});
-
-toBottom.addEventListener('click', () => {
-    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-});
+  backToTopBtn.addEventListener('click', () => { window.scrollTo({top:0, behavior:'smooth'}); });
+  toMiddle.addEventListener('click', () => { window.scrollTo({ top: document.body.scrollHeight / 2, behavior:'smooth'}); });
+  toBottom.addEventListener('click', () => { window.scrollTo({ top: document.body.scrollHeight, behavior:'smooth'}); });
 
 
-// Difficulty button listeners
-showEasyBtn.addEventListener("click", () => {
-    currentDifficultyFilter = "easy";
-    updateDifficultyView();
-    mainTitle.textContent = "Easy Questions";
-});
+  copyBtn.addEventListener("click", () => { navigator.clipboard.writeText(inputText.value).catch(err => console.error(err)); });
 
-showMedBtn.addEventListener("click", () => {
-    currentDifficultyFilter = "med";
-    updateDifficultyView();
-    mainTitle.textContent = "Medium Questions";
-});
+  // Hard/Focus textarea copy and clear buttons
+  hardCopyBtn.addEventListener("click", () => { navigator.clipboard.writeText(hardText.value).catch(err => console.error(err)); });
+  hardClearBtn.addEventListener("click", () => { hardText.value = ""; });
+  focusCopyBtn.addEventListener("click", () => { navigator.clipboard.writeText(focusText.value).catch(err => console.error(err)); });
+  focusClearBtn.addEventListener("click", () => { focusText.value = ""; });
 
-showHardBtn.addEventListener("click", () => {
-    currentDifficultyFilter = "hard";
-    updateDifficultyView();
-    mainTitle.textContent = "Hard Questions";
-});
+  prevBtnTop.addEventListener("click", prevPage);
+  prevBtnBottom.addEventListener("click", prevPage);
+  nextBtnTop.addEventListener("click", nextPage);
+  nextBtnBottom.addEventListener("click", nextPage);
 
-copyBtn.addEventListener("click", () => {
-    const text = inputText.value;
-    navigator.clipboard.writeText(text).catch(err => {
-        console.error("Failed to copy text: ", err);
-    });
-});
+  [pageDropdownTop, pageDropdownBottom].forEach(dropdown => {
+    dropdown.addEventListener("change", (e) => { goToPage(Number(e.target.value)); });
+  });
 
-function clearTextArea() {
-    inputText.value = "";
-}
+  showAllBtnTop.addEventListener("click", () => { showAllPages(); });
+  showAllBtnBottom.addEventListener("click", () => { showAllPages(); });
 
-function scrollToTopSmooth() {
-   document.documentElement.scrollTop = 0; // Firefox
-    document.body.scrollTop = 0;            // Chrome, Safari
-}
-
-function formatTextToHTML(text) {
+  // ========================== FORMAT TEXT ==========================
+  function formatTextToHTML(text) {
     const lines = text.split("\n");
     let htmlOutput = "";
     let groupOpen = false;
 
     lines.forEach((line, index) => {
-        const trimmedLine = line.trim();
-        if (!trimmedLine) return;
+      const sentenceOrder = index + 1;
+      const trimmedLine = line.trim();
+      if (!trimmedLine) return;
 
-        if (trimmedLine.startsWith("=")) {
-            if (groupOpen) htmlOutput += "</div>\n";
+      if (trimmedLine.startsWith("=")) {
+        if(groupOpen) htmlOutput += "</div>\n";
 
-            let groupType = "G0";
-            let difficulty = "none";
-            let questionText = "";
+        let groupType = "G0";
+        let difficulty = "none";
+        const afterEqual = trimmedLine.substring(1).trim();
+        const prefixMatch = trimmedLine.match(/^=(\d*)/);
+        const originalPrefix = prefixMatch[1] ? "=" + prefixMatch[1] : "=";
 
-            const afterEqual = trimmedLine.substring(1).trim();
+        groupOpen = true;
 
-            if (!afterEqual) {
-                // Case: just "="
-                questionText = "";
-            } else if (/[A-Z]/.test(afterEqual[0])) {
-                // Case: =D:H or similar (difficulty only)
-                const diffMatch = afterEqual.match(/^D:([EMH])\s*(.*)/);
-                if (diffMatch) {
-                    const diffLetter = diffMatch[1];
-                    if (diffLetter === "E") difficulty = "easy";
-                    if (diffLetter === "M") difficulty = "med";
-                    if (diffLetter === "H") difficulty = "hard";
-                    questionText = diffMatch[2];
-                } else {
-                    questionText = afterEqual;
-                }
-            } else {
-                // Case: optional number + optional =D:X
-                const numMatch = afterEqual.match(/^(\d+)(?:=D:([EMH]))?\s*(.*)/);
-                if (numMatch) {
-                    const num = numMatch[1];
-                    const diffLetter = numMatch[2];
-                    questionText = numMatch[3] || "";
+        htmlOutput += `<div data-group-type="${groupType}" data-difficulty="${difficulty}" data-original-prefix="${originalPrefix}">\n`;
+        htmlOutput += `<hr class="divider"><p class="question" data-sentence-order="${sentenceOrder}">${afterEqual}</p>\n`;
 
-                    groupType = "G" + num;
+      } else if(trimmedLine.startsWith("@")) htmlOutput += `<p class="questionChoice" data-sentence-order="${sentenceOrder}">${trimmedLine.substring(1).trim()}</p>\n`;
+      else if(trimmedLine.startsWith("+")) htmlOutput += `<p class="highlight" data-sentence-order="${sentenceOrder}">${trimmedLine.substring(1).trim()}</p>\n`;
+      else if(trimmedLine.startsWith("#")) htmlOutput += `<p class="highlight2" data-sentence-order="${sentenceOrder}">${trimmedLine.substring(1).trim()}</p>\n`;
+      else if(trimmedLine.startsWith("***")) htmlOutput += `<p class="chapterHeader" data-sentence-order="${sentenceOrder}">${trimmedLine.substring(3).trim()}</p>\n`;
+      else if(trimmedLine.startsWith("-")) htmlOutput += `<p class="subTopicHeader" data-sentence-order="${sentenceOrder}">${trimmedLine.substring(1).trim()}</p>\n`;
+      else if(trimmedLine.startsWith(">")) htmlOutput += `<p class="answer" data-sentence-order="${sentenceOrder}"><span class="arrow">→</span> ${trimmedLine.substring(1).trim()}</p>\n`;
+      else htmlOutput += `<p class="answer" data-sentence-order="${sentenceOrder}">${trimmedLine}</p>\n`;
 
-                    if (diffLetter) {
-                        if (diffLetter === "E") difficulty = "easy";
-                        if (diffLetter === "M") difficulty = "med";
-                        if (diffLetter === "H") difficulty = "hard";
-                    }
-                } else {
-                    questionText = afterEqual;
-                }
-            }
-
-            // Save original prefix for later updates
-            const prefixMatch = trimmedLine.match(/^=(\d*)/);
-            const originalPrefix = prefixMatch[1] ? "=" + prefixMatch[1] : "=";
-
-            htmlOutput += `<div data-group-type="${groupType}" data-difficulty="${difficulty}" data-original-prefix="${originalPrefix}">\n`;
-            groupOpen = true;
-            htmlOutput += `<hr class="divider"><p class="question">${questionText}</p>\n`;
-        }
-        else if (trimmedLine.startsWith("+")) {
-            htmlOutput += `<p class="highlight">${trimmedLine.substring(1).trim()}</p>\n`;
-        }
-        else if (trimmedLine.startsWith("#")) {
-            htmlOutput += `<p class="highlight2">${trimmedLine.substring(1).trim()}</p>\n`;
-        }
-        else if (trimmedLine.startsWith("@")) {
-            htmlOutput += `<p class="questionChoice">${trimmedLine.substring(1).trim()}</p>\n`;
-        }
-        else if (trimmedLine.startsWith("***")) {
-            htmlOutput += `<p class="chapterHeader">${trimmedLine.substring(3).trim()}</p>\n`;
-        }
-        else if (trimmedLine.startsWith("-")) {
-            htmlOutput += `<p class="subTopicHeader">${trimmedLine.substring(1).trim()}</p>\n`;
-        }
-        else if (trimmedLine.startsWith(">")) {
-            htmlOutput += `<p class="answer"><span class="arrow">→</span> ${trimmedLine.substring(1).trim()}</p>\n`;
-        }
-        else {
-            htmlOutput += `<p class="answer">${trimmedLine}</p>\n`;
-        }
-
-        if (index === lines.length - 1 && groupOpen) htmlOutput += "</div>\n";
+      if(index === lines.length-1 && groupOpen) htmlOutput += "</div>\n";
     });
 
     return htmlOutput;
-}
+  }
 
+  // ========================== SUBMIT ==========================
+  submitBtn.addEventListener("click",()=> {
+    outputHtml.innerHTML=formatTextToHTML(inputText.value);
+    addDifficultyButtons();
+    currentPage=0;
+    populateDropdowns();
+    goToPage(0);
 
-// Close the menu when any button inside the menu is clicked
-const menuButtons = sideMenu.querySelectorAll('button');
-menuButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    sideMenu.classList.remove('active');
+    // hide all textareas and buttons
+    [inputText,hardText,focusText,submitBtn,copyBtn,clearBtn,hardCopyBtn, hardClearBtn, focusCopyBtn, focusClearBtn].forEach(el => el.style.display="none");
+    showTextBtn.style.display="inline-block";
   });
-});
 
+  showTextBtn.addEventListener("click",()=> {
+    const isHidden=inputText.style.display==="none";
+    [inputText,hardText,focusText,submitBtn,copyBtn,clearBtn,hardCopyBtn, hardClearBtn, focusCopyBtn, focusClearBtn].forEach(el=>el.style.display=isHidden?"inline-block":"none");
+    showTextBtn.textContent=isHidden?"Hide Text":"Show Text";
+  });
 
+  // ========================== HARD/FOCUS BUTTONS ==========================
+function addDifficultyButtons(){
+  const allGroups=document.querySelectorAll("#outputHtml > div");
+  allGroups.forEach((div)=>{
+    if(div.querySelector(".focus-btn-container")) return;
+    const container=document.createElement("div");
+    container.classList.add("focus-btn-container");
 
+    // HARD BUTTON
+    const hardBtn=document.createElement("button");
+    hardBtn.textContent="Hard";
+    hardBtn.classList.add("focus-btn"); // <-- added class
+    hardBtn.addEventListener("click",()=>{ copyLinesPreserveNewlines(div, hardText); });
+    container.appendChild(hardBtn);
 
+    // FOCUS BUTTON
+    const focusBtn=document.createElement("button");
+    focusBtn.textContent="Focus";
+    focusBtn.classList.add("focus-btn"); // <-- added class
+    focusBtn.addEventListener("click",()=>{ copyLinesPreserveNewlines(div, focusText); });
+    container.appendChild(focusBtn);
 
-
-    // Show divs based on start/end index
-    function showPage(start, end) {
-        const allGroups = document.querySelectorAll("#outputHtml > div");
-        const allChapters = document.querySelectorAll("#outputHtml .chapterHeader");
-
-        // Hide chapter headers during pagination
-        allChapters.forEach(h => h.style.display = "none");
-
-        allGroups.forEach((div, index) => {
-            div.style.display = index >= start && index <= end ? "block" : "none";
-        });
-    }
-
-    // Populate dropdown menus dynamically
-    function populateDropdowns() {
-        const allGroups = document.querySelectorAll("#outputHtml > div");
-        totalPages = Math.ceil(allGroups.length / DIVS_PER_PAGE);
-
-        const options = [];
-        options.push({value: 0, text: "All"}); // page 0 = show all
-        for (let i = 1; i <= totalPages; i++) {
-            options.push({value: i, text: `Page ${i}`});
-        }
-
-        [pageDropdownTop, pageDropdownBottom].forEach(dropdown => {
-            dropdown.innerHTML = "";
-            options.forEach(opt => {
-                const option = document.createElement("option");
-                option.value = opt.value;
-                option.textContent = opt.text;
-                dropdown.appendChild(option);
-            });
-        });
-    }
-
-    // Update dropdowns when current page changes
-    function updateDropdowns() {
-        [pageDropdownTop, pageDropdownBottom].forEach(dropdown => {
-            dropdown.value = currentPage;
-        });
-    }
-
-   // Display page based on page number
-    function goToPage(pageNum) {
-        const allGroups = document.querySelectorAll("#outputHtml > div");
-        if (pageNum === 0) {
-            allGroups.forEach(div => div.style.display = "block");
-            document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "block");
-            mainTitle.textContent = "Show All"; // <-- update title
-        } else {
-            const start = (pageNum - 1) * DIVS_PER_PAGE;
-            const end = start + DIVS_PER_PAGE - 1;
-            showPage(start, end);
-            mainTitle.textContent = `Page ${pageNum}`; // <-- update title
-        }
-        currentPage = pageNum;
-        updateDropdowns();
-        scrollToTopSmooth();
-    }
-
-    // Submit button: show all and setup pagination
-    submitBtn.addEventListener("click", () => {
-        outputHtml.innerHTML = formatTextToHTML(inputText.value);
-        addDifficultyButtons();
-
-          // Highlight difficulty buttons based on data-difficulty
-    document.querySelectorAll("#outputHtml > div").forEach(div => {
-        const diff = div.dataset.difficulty;
-        if (diff === "easy") div.querySelector(".focus-btn-container button:nth-child(1)").style.backgroundColor = "#3b7ce1";
-        if (diff === "med") div.querySelector(".focus-btn-container button:nth-child(2)").style.backgroundColor = "#3b7ce1";
-        if (diff === "hard") div.querySelector(".focus-btn-container button:nth-child(3)").style.backgroundColor = "#3b7ce1";
-    });
-
-
-
-        currentPage = 0;
-        populateDropdowns();
-        goToPage(0); // show all initially
-
-        // Hide textarea and submit button
-        inputText.style.display = "none";
-        submitBtn.style.display = "none";
-        copyBtn.style.display = "none";
-        clearBtn.style.display = "none";
-
-        // Show the "Show Text" button
-        showTextBtn.style.display = "inline-block";
-    });
-
-    showTextBtn.addEventListener("click", () => {
-    if (inputText.style.display === "none") {
-        inputText.style.display = "block";
-        submitBtn.style.display = "inline-block"; // show submit button again
-        clearBtn.style.display = "inline-block";
-        copyBtn.style.display = "inline-block";
-        showTextBtn.textContent = "Hide Text";
-    } else {
-        inputText.style.display = "none";
-        submitBtn.style.display = "none";
-        showTextBtn.textContent = "Show Text";
-        clearBtn.style.display = "none";
-        copyBtn.style.display = "none";
-        //clearBtn.style.display = "inline-block;"
-    }
-});
-
-    // Next button
-    function nextPage() {
-        if (currentPage < totalPages) goToPage(currentPage + 1);
-    }
-
-    // Previous button
-    function prevPage() {
-        if (currentPage > 0) goToPage(currentPage - 1);
-    }
-
-    nextBtnTop.addEventListener("click", nextPage);
-    nextBtnBottom.addEventListener("click", nextPage);
-    prevBtnTop.addEventListener("click", prevPage);
-    prevBtnBottom.addEventListener("click", prevPage);
-
-    // Dropdown change
-    [pageDropdownTop, pageDropdownBottom].forEach(dropdown => {
-        dropdown.addEventListener("change", (e) => {
-            goToPage(Number(e.target.value));
-        });
-    });
-
-    // Show All buttons
-
-        showAllBtnTop.addEventListener("click", () => {
-        currentDifficultyFilter = null;
-        document.querySelectorAll('#outputHtml > div').forEach(div => div.style.display = "block");
-        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "block");
-        mainTitle.textContent = "StudyTron";
-        scrollToTopSmooth();
-    });
-
-    showAllBtnBottom.addEventListener("click", () => {
-        currentDifficultyFilter = null;
-        document.querySelectorAll('#outputHtml > div').forEach(div => div.style.display = "block");
-        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "block");
-        mainTitle.textContent = "StudyTron";
-        scrollToTopSmooth();
-    });
-
-
-    // Reset filter when showing all
-    filterAllBtn.addEventListener("click", () => {
-        currentDifficultyFilter = null;
-        document.querySelectorAll('[data-group-type]').forEach(div => div.style.display = "block");
-        document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => h.style.display = "block");
-        mainTitle.textContent = "StudyTron";
-    });
-
-function applyGroupFilter(groupNum) {
-    document.querySelectorAll('[data-group-type]').forEach(div => {
-        div.style.display = div.dataset.groupType === "G" + groupNum ? "block" : "none";
-    });
-
-    document.querySelectorAll("#outputHtml .chapterHeader").forEach(h => {
-        h.style.display = "none";
-    });
-
-    mainTitle.textContent = "Group " + groupNum;
+    div.appendChild(container);
+  });
 }
 
-for (let i = 1; i <= 20; i++) {
-    const btn = groupFilterButtons[i];
-    if (!btn) continue;
-
-    btn.addEventListener("click", () => {
-        applyGroupFilter(i);
+  // Copy lines from original textarea to target, preserve blank lines, append, add single new line at end
+  function copyLinesPreserveNewlines(div,target){
+    const orders=[];
+    div.querySelectorAll(".question, .questionChoice, .answer, .highlight, .highlight2").forEach(el=>{
+      const order=el.getAttribute("data-sentence-order");
+      if(order) orders.push(parseInt(order));
     });
-}
+    if(orders.length===0) return;
 
+    orders.sort((a,b)=>a-b);
+    const originalLines=inputText.value.split("\n");
+    const firstLineIndex=Math.min(...orders)-1;
+    const lastLineIndex=Math.max(...orders)-1;
+    const linesToCopy = originalLines.slice(firstLineIndex,lastLineIndex+1);
 
-    //Difficulty buttons
-    // Add difficulty buttons to each div
-function addDifficultyButtons() {
-    const allGroups = document.querySelectorAll("#outputHtml > div");
+    if(target.value && !target.value.endsWith("\n")) target.value+="\n";
 
-    allGroups.forEach((div, divIndex) => {
-        if (div.querySelector(".focus-btn-container")) return;
+    // append lines including blank lines, add exactly 1 new line at the end
+    target.value += linesToCopy.join("\n") + "\n\n";
+  }
 
-        //div.dataset.difficulty = "none";
+  // ========================== PAGINATION/FILTER FUNCTIONS ==========================
+  function showPage(start,end){
+    const allGroups=document.querySelectorAll("#outputHtml > div");
+    const allChapters=document.querySelectorAll("#outputHtml .chapterHeader");
+    allChapters.forEach(h=>h.style.display="none");
+    allGroups.forEach((div,i)=>{ div.style.display=(i>=start && i<=end)?"block":"none"; });
+  }
 
-        div.dataset.difficulty = div.dataset.difficulty || "none";
-
-        const container = document.createElement("div");
-        container.classList.add("focus-btn-container");
-
-        const difficulties = ["EASY", "MED", "HARD"];
-
-        difficulties.forEach(level => {
-            const btn = document.createElement("button");
-            btn.textContent = level;
-            btn.classList.add("focus-btn");
-            btn.addEventListener("click", () => {
-                container.querySelectorAll("button.focus-btn").forEach(b => b.style.backgroundColor = "");
-                div.dataset.difficulty = level.toLowerCase();
-                btn.style.backgroundColor = "#3b7ce1";
-                updateTextareaDifficulty(divIndex, level[0].toUpperCase());
-                if (currentDifficultyFilter) updateDifficultyView();
-            });
-            container.appendChild(btn);
-        });
-
-        const removeBtn = document.createElement("button");
-        removeBtn.textContent = "REMOVE";
-        removeBtn.classList.add("remove-btn");
-        removeBtn.addEventListener("click", () => {
-            div.dataset.difficulty = "none";
-            container.querySelectorAll("button.focus-btn").forEach(b => b.style.backgroundColor = "");
-            updateTextareaDifficulty(divIndex, null); // remove difficulty but preserve original identifier
-            if (currentDifficultyFilter) {
-                div.style.display = "none";
-            } else {
-                div.style.display = "block";
-            }
-        });
-        container.appendChild(removeBtn);
-
-        div.appendChild(container);
+  function populateDropdowns() {
+    const allGroups=document.querySelectorAll("#outputHtml > div");
+    totalPages=Math.ceil(allGroups.length/DIVS_PER_PAGE);
+    const options=[{value:0,text:"All"}];
+    for(let i=1;i<=totalPages;i++) options.push({value:i,text:`Page ${i}`});
+    [pageDropdownTop,pageDropdownBottom].forEach(dropdown=>{
+      dropdown.innerHTML="";
+      options.forEach(opt=>{
+        const o=document.createElement("option");
+        o.value=opt.value;
+        o.textContent=opt.text;
+        dropdown.appendChild(o);
+      });
     });
-}
+  }
 
-function updateDifficultyView() {
-    const allGroups = document.querySelectorAll("#outputHtml > div");
+  function updateDropdowns(){ [pageDropdownTop,pageDropdownBottom].forEach(d=>d.value=currentPage); }
 
-    if (currentDifficultyFilter) {
-        allGroups.forEach(div => {
-            div.style.display = div.dataset.difficulty === currentDifficultyFilter ? "block" : "none";
-        });
-    } else {
-        // No filter active → show all divs
-        allGroups.forEach(div => {
-            div.style.display = "block";
-        });
-    }
-}
+  function goToPage(pageNum){
+    const allGroups=document.querySelectorAll("#outputHtml > div");
+    if(pageNum===0){ allGroups.forEach(d=>d.style.display="block"); document.querySelectorAll("#outputHtml .chapterHeader").forEach(h=>h.style.display="block"); mainTitle.textContent="Show All";}
+    else { const start=(pageNum-1)*DIVS_PER_PAGE,end=start+DIVS_PER_PAGE-1; showPage(start,end); mainTitle.textContent=`Page ${pageNum}`;}
+    currentPage=pageNum; updateDropdowns(); window.scrollTo({top:0,behavior:'smooth'});
+  }
 
-let currentDifficultyFilter = null;
+  function nextPage(){ if(currentPage<totalPages) goToPage(currentPage+1); }
+  function prevPage(){ if(currentPage>0) goToPage(currentPage-1); }
 
-showEasyBtn.addEventListener("click", () => {
-    currentDifficultyFilter = "easy";
-    updateDifficultyView();
-    mainTitle.textContent = "Easy Questions";
-});
+  function showAllPages(){ goToPage(0); }
 
-showMedBtn.addEventListener("click", () => {
-    currentDifficultyFilter = "med";
-    updateDifficultyView();
-    mainTitle.textContent = "Medium Questions";
-});
+  function applyGroupFilter(groupNum){
+    document.querySelectorAll('[data-group-type]').forEach(div=>{
+      div.style.display=div.dataset.groupType==="G"+groupNum?"block":"none";
+    });
+    document.querySelectorAll("#outputHtml .chapterHeader").forEach(h=>h.style.display="none");
+    mainTitle.textContent="Group "+groupNum;
+  }
 
-showHardBtn.addEventListener("click", () => {
-    currentDifficultyFilter = "hard";
-    updateDifficultyView();
-    mainTitle.textContent = "Hard Questions";
-});
-
-
-function updateTextareaDifficulty(divIndex, difficultyLetter) {
-    const lines = inputText.value.split("\n");
-    let current = -1;
-
-    for (let i = 0; i < lines.length; i++) {
-        if (!lines[i].startsWith("=")) continue;
-
-        current++;
-        if (current !== divIndex) continue;
-
-        const div = document.querySelectorAll("#outputHtml > div")[divIndex];
-        const originalPrefix = div.dataset.originalPrefix; // "=" or "=1" or "=20"
-        const content = lines[i]
-            .replace(/^=\d*=?D:[EMH]\s*/, "")
-            .replace(/^=\d*\s*/, "")
-            .replace(/^=\s*/, "")
-            .trim();
-
-        if (difficultyLetter) {
-            // Apply difficulty
-            if (originalPrefix === "=") {
-                lines[i] = `=D:${difficultyLetter} ${content}`;
-            } else {
-                lines[i] = `${originalPrefix}=D:${difficultyLetter} ${content}`;
-            }
-        } else {
-            // REMOVE — restore original prefix exactly
-            if (originalPrefix === "=") {
-                lines[i] = `=${content}`;
-            } else {
-                lines[i] = `${originalPrefix} ${content}`;
-            }
-        }
-        break;
-    }
-
-    inputText.value = lines.join("\n");
-}
-
-
-
+  function updateDifficultyView(){
+    const allGroups=document.querySelectorAll("#outputHtml > div");
+    if(currentDifficultyFilter) allGroups.forEach(div=>div.style.display=(div.dataset.difficulty===currentDifficultyFilter?"block":"none"));
+    else allGroups.forEach(div=>div.style.display="block");
+  }
 
 });

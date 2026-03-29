@@ -374,3 +374,22 @@ padding: 10px 20px;
 #toggleHFBtn:hover {
     background-color: #cc8400;
 }
+
+
+.otherPages {
+    background-color:#444;
+    text-decoration: none;
+    padding:15px;
+    width:75%;
+     display: flex;            /* enables flexbox */
+    justify-content: center;  /* horizontal centering */
+    align-items: center;      /* vertical centering */
+    text-align: center;       /* centers multi-line text if needed */
+    border-radius: 8px;
+    color:white;
+
+}
+
+.otherPages:hover {
+    background-color: #555;
+}

@@ -153,7 +153,7 @@ body {
 /* Floating buttons */
 #blepButton {
     position: fixed;
-    bottom: 40px;
+    bottom: 140px;
     right: 30px;
     background-color: #a4b0be;
     color: rgb(0, 0, 0);
@@ -167,7 +167,6 @@ body {
     transition: background-color 0.3s;
 }
 
-/* Floating buttons */
 #menuButton {
     position: fixed;
     bottom: 40px;
@@ -184,18 +183,14 @@ body {
     transition: background-color 0.3s;
 }
 
-#blepButton {
-    bottom: 140px;
-}
-
 /* Focus buttons */
 .focus-btn-container {
     margin-top: 10px;
 }
 
 .focus-btn {
-    margin-right: 5px;
-    padding: 10px 10px;
+    margin-right: 15px;
+    padding: 20px 20px;
     border: 1px solid #404040;
     background-color: #404040;
     color: #fff;
@@ -231,27 +226,9 @@ body {
     background-color: #ff7875;
 }
 
-/* Submit button */
-#submitBtn {
-    color:#ffffff;
-    background-color:#0b76ff;
-    margin-top: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-}
-
-#copyBtn {
-    color:#ffffff;
-    background-color:#0b76ff;
-    margin-top: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-}
-
+/* Submit, copy, clear buttons */
+#submitBtn,
+#copyBtn,
 #clearBtn {
     color:#ffffff;
     background-color:#0b76ff;
@@ -266,7 +243,6 @@ body {
 #outputHtml {
     font-family: Arial, sans-serif;
     white-space: normal;
-    /*display: inline-block;*/
 }
 
 .arrow {
@@ -281,7 +257,6 @@ body {
     gap: 10px;
 }
 
-/* Buttons: Previous, Next, Show All (flat orange) */
 .pagination-container button {
     padding: 8px 12px;
     font-size: 16px;
@@ -318,7 +293,7 @@ body {
     transform: scale(0.98);
 }
 
-/* Pagination dropdown: default browser style with white background */
+/* Pagination dropdown */
 .page-select {
     font-size: 16px;
     cursor: pointer;
@@ -329,10 +304,8 @@ body {
     border: 1px solid #ccc;
 }
 
-
-
 #mainTitle {
-color: #f31a7f;  
+    color: #f31a7f;  
 }
 
 .menuText {
@@ -347,9 +320,93 @@ color: #f31a7f;
     cursor: pointer;
     border-radius: 4px;
     font-size: 12px;
-    padding: 8px 15px;
+    padding: 12px 30px;
+    font-size:14px;
 }
 
 .focus-btn:hover, .remove-btn:hover {
     background-color: #666;
+}
+
+/* -------------------
+  New Containers & Textareas
+------------------- */
+.hardContainer,
+.focusContainer {
+    margin-top: 20px; /* space below main buttons */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+#hardText,
+#focusText {
+    width: 100%;
+    min-height: 150px;
+    padding: 10px;
+    font-size: 16px;
+    line-height: 1.5;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+    box-sizing: border-box;
+    background-color: #1e1e1e; /* dark theme */
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+/* Buttons under new textareas */
+#hardCopyBtn,
+#hardClearBtn,
+#focusCopyBtn,
+#focusClearBtn {
+    padding: 8px 16px;
+    margin-right: 10px;
+    margin-top: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #3b7ce1;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#hardCopyBtn:hover,
+#hardClearBtn:hover,
+#focusCopyBtn:hover,
+#focusClearBtn:hover {
+    background-color: #2a5bb0;
+}
+
+.otherPages {
+    background-color:#444;
+    text-decoration: none;
+    padding:15px;
+    width:75%;
+     display: flex;            /* enables flexbox */
+    justify-content: center;  /* horizontal centering */
+    align-items: center;      /* vertical centering */
+    text-align: center;       /* centers multi-line text if needed */
+    border-radius: 8px;
+    color:white;
+
+}
+
+.otherPages:hover {
+    background-color: #555;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 600px) {
+    #hardCopyBtn,
+    #hardClearBtn,
+    #focusCopyBtn,
+    #focusClearBtn {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 8px;
+    }
 }

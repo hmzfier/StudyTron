@@ -33,11 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const pageDropdownBottom = document.getElementById("pageDropdownBottom");
   const showAllBtnBottom = document.getElementById("showAllPageBottom");
 
-  const randomizeBtn = document.getElementById("randomizeBtn");
-  const randomizeBtnBottom = document.getElementById("randomizeBtnBottom");
-
-  let isRandomized = false;
-
   let groups = [];
   let currentGroupIndex = -1; // -1 = show all
   let originalLines = [];
@@ -60,9 +55,6 @@ document.addEventListener("DOMContentLoaded", () => {
   backToTopBtn.addEventListener('click', () => { window.scrollTo({top:0, behavior:'smooth'}); });
   toMiddle.addEventListener('click', () => { window.scrollTo({ top: document.body.scrollHeight / 2, behavior:'smooth'}); });
   toBottom.addEventListener('click', () => { window.scrollTo({ top: document.body.scrollHeight, behavior:'smooth'}); });
-
-  randomizeBtn.addEventListener("click", toggleRandomize);
-  randomizeBtnBottom.addEventListener("click", toggleRandomize);
 
   copyBtn.addEventListener("click", () => { navigator.clipboard.writeText(inputText.value).catch(err => console.error(err)); });
   hardCopyBtn.addEventListener("click", () => { navigator.clipboard.writeText(hardText.value).catch(err => console.error(err)); });
@@ -144,14 +136,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // ========================== SUBMIT ==========================
   submitBtn.addEventListener("click", () => {
     outputHtml.innerHTML = formatTextToHTML(inputText.value);
-
-    document.querySelectorAll(".groupContainer").forEach(group => {
-
-        group.originalQuestionOrder =
-            [...group.querySelectorAll(".questionContainer")];
-
-    });
-
     addHardFocusButtons();
     currentGroupIndex = -1;
     setupPagination();
@@ -202,48 +186,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const originalLinesCopy = originalLines.slice(Math.min(...orders)-1, Math.max(...orders));
     if(target.value && !target.value.endsWith("\n")) target.value += "\n";
     target.value += originalLinesCopy.join("\n") + "\n\n";
-  }
-
-  // ========================== RANFOMIZE START HERE ==========================
-  function shuffle(array) {
-
-    for (let i = array.length - 1; i > 0; i--) {
-
-        const j = Math.floor(Math.random() * (i + 1));
-
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-
-    return array;
-  }
-
-  function toggleRandomize() {
-
-    document.querySelectorAll(".groupContainer").forEach(group => {
-
-        const questions =
-            [...group.querySelectorAll(".questionContainer")];
-
-        if (!isRandomized) {
-
-            shuffle(questions);
-
-            questions.forEach(q => group.appendChild(q));
-
-        } else {
-
-            group.originalQuestionOrder.forEach(q => group.appendChild(q));
-
-        }
-
-    });
-
-    isRandomized = !isRandomized;
-
-    const text = isRandomized ? "Unrandomize" : "Randomize";
-
-    randomizeBtn.textContent = text;
-    randomizeBtnBottom.textContent = text;
   }
 
   // ========================== PAGINATION ==========================

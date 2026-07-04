@@ -153,7 +153,7 @@ body {
 /* Floating buttons */
 #blepButton {
     position: fixed;
-    width:110px;
+    width:120px;
     bottom: 140px;
     right: 30px;
     background-color: #a4b0be;
@@ -170,7 +170,7 @@ body {
 
 #menuButton {
     position: fixed;
-    width:110px;
+    width:120px;
     bottom: 40px;
     right: 30px;
     background-color: #a4b0be;
@@ -408,7 +408,7 @@ body {
 
 #toggleQuestionBtn {
     position: fixed;
-    width:110px;
+    width:120px;
     bottom: 240px;
     right: 30px;
     background-color: #a4b0be;

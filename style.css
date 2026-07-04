@@ -153,6 +153,7 @@ body {
 /* Floating buttons */
 #blepButton {
     position: fixed;
+    width:110px;
     bottom: 140px;
     right: 30px;
     background-color: #a4b0be;
@@ -169,6 +170,7 @@ body {
 
 #menuButton {
     position: fixed;
+    width:110px;
     bottom: 40px;
     right: 30px;
     background-color: #a4b0be;
@@ -404,6 +406,23 @@ body {
     background-color: #555;
 }
 
+#toggleQuestionBtn {
+    position: fixed;
+    width:110px;
+    bottom: 240px;
+    right: 30px;
+    background-color: #a4b0be;
+    color: black;
+    border: none;
+    border-radius: 10px;
+    padding: 30px 30px;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 1100;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    transition: background-color 0.3s;
+}
+
 /* Responsive adjustments for smaller screens */
 @media (max-width: 600px) {
     #hardCopyBtn,
@@ -414,4 +433,23 @@ body {
         margin-right: 0;
         margin-bottom: 8px;
     }
+    #blepButton,
+    #menuButton,
+    #toggleQuestionBtn {
+        width: 70px;
+        font-size:12px;
+        padding: 30px 10px;
+        right:10px;
+    }
 }
+
+
+
+/*@media (max-width: 600px) {
+    #blepButton,
+    #menuButton,
+    #toggleQuestionBtn {
+        width: 100%;
+        font-size:12px;
+    }
+}*/

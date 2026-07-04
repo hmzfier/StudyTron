@@ -42,12 +42,17 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentGroupIndex = -1; // -1 = show all
   let originalLines = [];
 
+  const toggleQuestionBtn = document.getElementById("toggleQuestionBtn");
+  let questionsHidden = false;
+
+  let answersHidden = false;
+
   // ========================== BUTTON LISTENERS ==========================
   clearBtn.addEventListener("click", () => { inputText.value = ""; });
 
   menuButton.addEventListener('click', () => { sideMenu.classList.toggle('active'); });
 
-  blepButton.addEventListener('click', () => {
+  /*blepButton.addEventListener('click', () => {
     document.querySelectorAll('.answer, .answer2, .highlight, .highlight2, .arrow').forEach(el => {
       if(el.classList.contains("answer") || el.classList.contains("answer2")) el.style.color = isRed2 ? '#ffffff' : '#2d2d2d';
       else if(el.classList.contains("highlight")) el.style.color = isRed2 ? '#fd3ac3' : '#2d2d2d';
@@ -55,7 +60,26 @@ document.addEventListener("DOMContentLoaded", () => {
       else if(el.classList.contains("arrow")) el.style.color = isRed2 ? '#77ff29' : '#2d2d2d';
     });
     isRed2 = !isRed2;
+  });*/
+
+  blepButton.addEventListener('click', () => {
+
+  document.querySelectorAll('.answer, .answer2, .highlight, .highlight2, .arrow').forEach(el => {
+    if(el.classList.contains("answer") || el.classList.contains("answer2")) 
+        el.style.color = isRed2 ? '#ffffff' : '#2d2d2d';
+    else if(el.classList.contains("highlight")) 
+        el.style.color = isRed2 ? '#fd3ac3' : '#2d2d2d';
+    else if(el.classList.contains("highlight2")) 
+        el.style.color = isRed2 ? '#ff4039' : '#2d2d2d';
+    else if(el.classList.contains("arrow")) 
+        el.style.color = isRed2 ? '#77ff29' : '#2d2d2d';
   });
+
+  isRed2 = !isRed2;
+
+  answersHidden = !answersHidden;
+  blepButton.textContent = answersHidden ? "Show A" : "Hide A";
+});
 
   backToTopBtn.addEventListener('click', () => { window.scrollTo({top:0, behavior:'smooth'}); });
   toMiddle.addEventListener('click', () => { window.scrollTo({ top: document.body.scrollHeight / 2, behavior:'smooth'}); });
@@ -203,6 +227,24 @@ document.addEventListener("DOMContentLoaded", () => {
     if(target.value && !target.value.endsWith("\n")) target.value += "\n";
     target.value += originalLinesCopy.join("\n") + "\n\n";
   }
+
+  //========================== Show/Hide Questions ==========================
+ toggleQuestionBtn.addEventListener("click", () => {
+
+  document.querySelectorAll(".question").forEach(el => {
+
+    if (!questionsHidden) {
+      el.style.color = "#2d2d2d";
+    } else {
+      el.style.color = "#53d35b";
+    }
+
+  });
+
+  questionsHidden = !questionsHidden;
+
+  toggleQuestionBtn.textContent = questionsHidden ? "Show Q" : "Hide Q";
+});
 
   // ========================== RANFOMIZE START HERE ==========================
   function shuffle(array) {
